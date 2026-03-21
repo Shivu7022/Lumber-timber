@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f9fafb;
+    --text-primary: #111827;
+    --text-secondary: #4b5563;
+    --accent: #8b4513; 
+    --border-color: #e5e7eb;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+  }
+
+  [data-theme='dark'] {
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --accent: #fcd34d;
+    --border-color: #334155;
+    --shadow-color: rgba(0, 0, 0, 0.5);
+  }
+
+  [data-theme='wood'] {
+    --bg-primary: #fdf8f5;
+    --bg-secondary: #f4ece4;
+    --text-primary: #2c1a0e;
+    --text-secondary: #5a3d2b;
+    --accent: #8b4513;
+    --border-color: #d7c9b8;
+    --shadow-color: rgba(139, 69, 19, 0.15);
+  }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-[var(--accent)] text-white px-6 py-3 rounded-xl font-bold transition-all duration-300 transform 
+           shadow-[0_4px_0_var(--shadow-color)]
+           hover:-translate-y-1 hover:shadow-[0_6px_0_var(--shadow-color)]
+           active:translate-y-1 active:shadow-none;
+  }
+
+  .card {
+    @apply bg-[var(--bg-primary)] rounded-2xl p-6 transition-all duration-300 border border-[var(--border-color)]
+           shadow-[0_4px_20px_-4px_var(--shadow-color)]
+           hover:-translate-y-2 hover:shadow-[0_12px_30px_-4px_var(--shadow-color)];
+  }
+}
+
+@layer utilities {
+  /* Fixes a widespread bug where text-primary accidentally mapped to the background color in non-dark themes */
+  .text-primary {
+    color: var(--text-primary) !important;
+  }
+}

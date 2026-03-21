@@ -1,0 +1,2420 @@
+[
+  {
+    "name": "Wooden Channapatna Craft",
+    "description": "Beautiful handcrafted Channapatna Craft toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1628,
+    "images": [
+      "/images/1649921976376191.webp"
+    ],
+    "category": "Educational Toys",
+    "ageGroup": "0-2 years",
+    "rating": 4.5,
+    "reviews": 145,
+    "artisan": {
+      "name": "Priya Sharma",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468721-1",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.721Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden In  Preschool Toys Kids Bestie",
+    "description": "Beautiful handcrafted In  Preschool Toys Kids Bestie toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 961,
+    "images": [
+      "/images/6-in-1-preschool-toys-kids-bestie-2.png"
+    ],
+    "category": "Animals",
+    "ageGroup": "3-5 years",
+    "rating": 4.3,
+    "reviews": 73,
+    "artisan": {
+      "name": "Rajesh Rao",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468723-2",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.723Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Adopt Abacus",
+    "description": "Beautiful handcrafted Adopt Abacus toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1583,
+    "images": [
+      "/images/adopt-abacus.jpg.jpeg"
+    ],
+    "category": "Decorative Toys",
+    "ageGroup": "6-8 years",
+    "rating": 5,
+    "reviews": 9,
+    "artisan": {
+      "name": "Meera Patel",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468723-3",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.723Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Adopt Fishpond",
+    "description": "Beautiful handcrafted Adopt Fishpond toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1044,
+    "images": [
+      "/images/adopt-fishpond.jpg.jpeg"
+    ],
+    "category": "Baby Toys",
+    "ageGroup": "9+ years",
+    "rating": 4.5,
+    "reviews": 175,
+    "artisan": {
+      "name": "Priya Sharma",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468723-4",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.723Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Adopt Glider Plane",
+    "description": "Beautiful handcrafted Adopt Glider Plane toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 900,
+    "images": [
+      "/images/adopt-glider-plane.jpg.jpeg"
+    ],
+    "category": "Puzzle Toys",
+    "ageGroup": "0-2 years",
+    "rating": 3.8,
+    "reviews": 48,
+    "artisan": {
+      "name": "Rajesh Rao",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468724-5",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.724Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Adopt Hanging Rattle",
+    "description": "Beautiful handcrafted Adopt Hanging Rattle toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1097,
+    "images": [
+      "/images/adopt-hanging-rattle.jpg.jpeg"
+    ],
+    "category": "Vehicles",
+    "ageGroup": "3-5 years",
+    "rating": 4.7,
+    "reviews": 21,
+    "artisan": {
+      "name": "Meera Patel",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468724-6",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.724Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Adopt Mangaluru Couples",
+    "description": "Beautiful handcrafted Adopt Mangaluru Couples toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 2491,
+    "images": [
+      "/images/adopt-mangaluru-couples.jpg.jpeg"
+    ],
+    "category": "Dolls",
+    "ageGroup": "6-8 years",
+    "rating": 4.7,
+    "reviews": 9,
+    "artisan": {
+      "name": "Priya Sharma",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468724-7",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.724Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Adopt Numbers Board",
+    "description": "Beautiful handcrafted Adopt Numbers Board toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1138,
+    "images": [
+      "/images/adopt-numbers-board.jpg.jpeg"
+    ],
+    "category": "Educational Toys",
+    "ageGroup": "9+ years",
+    "rating": 4.4,
+    "reviews": 103,
+    "artisan": {
+      "name": "Rajesh Rao",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468724-8",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.724Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Adopt Racecar",
+    "description": "Beautiful handcrafted Adopt Racecar toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 729,
+    "images": [
+      "/images/adopt-racecar.jpg.jpeg"
+    ],
+    "category": "Animals",
+    "ageGroup": "0-2 years",
+    "rating": 3.7,
+    "reviews": 16,
+    "artisan": {
+      "name": "Meera Patel",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468725-9",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.725Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Adopt Ramayana Set",
+    "description": "Beautiful handcrafted Adopt Ramayana Set toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 586,
+    "images": [
+      "/images/adopt-ramayana-set.jpg.jpeg"
+    ],
+    "category": "Decorative Toys",
+    "ageGroup": "3-5 years",
+    "rating": 4.7,
+    "reviews": 44,
+    "artisan": {
+      "name": "Priya Sharma",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468725-10",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.725Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Adopt Rocking Horse",
+    "description": "Beautiful handcrafted Adopt Rocking Horse toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 809,
+    "images": [
+      "/images/adopt-rocking-horse.jpg.jpeg"
+    ],
+    "category": "Baby Toys",
+    "ageGroup": "6-8 years",
+    "rating": 4.8,
+    "reviews": 130,
+    "artisan": {
+      "name": "Rajesh Rao",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468726-11",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.726Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Baby",
+    "description": "Beautiful handcrafted Baby toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1813,
+    "images": [
+      "/images/baby.jpg.jpeg"
+    ],
+    "category": "Puzzle Toys",
+    "ageGroup": "9+ years",
+    "rating": 4.3,
+    "reviews": 124,
+    "artisan": {
+      "name": "Meera Patel",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468726-12",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.726Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Biker",
+    "description": "Beautiful handcrafted Biker toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 843,
+    "images": [
+      "/images/biker.jpg.jpeg"
+    ],
+    "category": "Vehicles",
+    "ageGroup": "0-2 years",
+    "rating": 3.8,
+    "reviews": 67,
+    "artisan": {
+      "name": "Priya Sharma",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468726-13",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.726Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Blog",
+    "description": "Beautiful handcrafted Blog toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 2144,
+    "images": [
+      "/images/BLOG.jpg.jpeg"
+    ],
+    "category": "Dolls",
+    "ageGroup": "3-5 years",
+    "rating": 3.9,
+    "reviews": 174,
+    "artisan": {
+      "name": "Rajesh Rao",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468726-14",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.726Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Bramins Couples",
+    "description": "Beautiful handcrafted Bramins Couples toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 2249,
+    "images": [
+      "/images/bramins-couples.jpg.jpeg"
+    ],
+    "category": "Educational Toys",
+    "ageGroup": "6-8 years",
+    "rating": 4,
+    "reviews": 114,
+    "artisan": {
+      "name": "Meera Patel",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468726-15",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.726Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Bride Groom Doll",
+    "description": "Beautiful handcrafted Bride Groom Doll toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1400,
+    "images": [
+      "/images/bride-groom-doll.jpg.jpeg"
+    ],
+    "category": "Animals",
+    "ageGroup": "9+ years",
+    "rating": 3.9,
+    "reviews": 106,
+    "artisan": {
+      "name": "Priya Sharma",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468726-16",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.726Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Carpenter",
+    "description": "Beautiful handcrafted Carpenter toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1140,
+    "images": [
+      "/images/carpenter.jpg.jpeg"
+    ],
+    "category": "Decorative Toys",
+    "ageGroup": "0-2 years",
+    "rating": 4.2,
+    "reviews": 126,
+    "artisan": {
+      "name": "Rajesh Rao",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468726-17",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.726Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Channapatna Toys Wooden Rattle Toys For Baby",
+    "description": "Beautiful handcrafted Channapatna Toys Wooden Rattle Toys For Baby toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 599,
+    "images": [
+      "/images/Channapatna-toys-Wooden-Rattle-Toys-for-Baby-2.jpg.jpeg"
+    ],
+    "category": "Baby Toys",
+    "ageGroup": "3-5 years",
+    "rating": 4.5,
+    "reviews": 190,
+    "artisan": {
+      "name": "Meera Patel",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468727-18",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.727Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Channapatna Wooden Toys",
+    "description": "Beautiful handcrafted Channapatna Wooden Toys toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 600,
+    "images": [
+      "/images/Channapatna-Wooden-Toys.jpeg"
+    ],
+    "category": "Puzzle Toys",
+    "ageGroup": "6-8 years",
+    "rating": 4,
+    "reviews": 8,
+    "artisan": {
+      "name": "Priya Sharma",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468727-19",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.727Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Chicken",
+    "description": "Beautiful handcrafted Chicken toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 961,
+    "images": [
+      "/images/chicken.jpg.jpeg"
+    ],
+    "category": "Vehicles",
+    "ageGroup": "9+ years",
+    "rating": 4.4,
+    "reviews": 24,
+    "artisan": {
+      "name": "Rajesh Rao",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468727-20",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.727Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden China",
+    "description": "Beautiful handcrafted China toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 2382,
+    "images": [
+      "/images/china.jpg.jpeg"
+    ],
+    "category": "Dolls",
+    "ageGroup": "0-2 years",
+    "rating": 3.7,
+    "reviews": 81,
+    "artisan": {
+      "name": "Meera Patel",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468727-21",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.727Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Chip Chop X",
+    "description": "Beautiful handcrafted Chip Chop X toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 2181,
+    "images": [
+      "/images/Chip-Chop_360x.png"
+    ],
+    "category": "Educational Toys",
+    "ageGroup": "3-5 years",
+    "rating": 4.7,
+    "reviews": 121,
+    "artisan": {
+      "name": "Priya Sharma",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468727-22",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.727Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Coffee",
+    "description": "Beautiful handcrafted Coffee toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 686,
+    "images": [
+      "/images/coffee.jpg.jpeg"
+    ],
+    "category": "Animals",
+    "ageGroup": "6-8 years",
+    "rating": 4.4,
+    "reviews": 133,
+    "artisan": {
+      "name": "Rajesh Rao",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468727-23",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.727Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Cow",
+    "description": "Beautiful handcrafted Cow toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 753,
+    "images": [
+      "/images/cow.jpg.jpeg"
+    ],
+    "category": "Decorative Toys",
+    "ageGroup": "9+ years",
+    "rating": 3.8,
+    "reviews": 54,
+    "artisan": {
+      "name": "Meera Patel",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468727-24",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.727Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Danglerfrog",
+    "description": "Beautiful handcrafted Danglerfrog toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 2409,
+    "images": [
+      "/images/Danglerfrog.jpg.jpeg"
+    ],
+    "category": "Baby Toys",
+    "ageGroup": "0-2 years",
+    "rating": 3.7,
+    "reviews": 74,
+    "artisan": {
+      "name": "Priya Sharma",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468727-25",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.727Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Doctor Family Set",
+    "description": "Beautiful handcrafted Doctor Family Set toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1972,
+    "images": [
+      "/images/doctor-family-set.jpg.jpeg"
+    ],
+    "category": "Puzzle Toys",
+    "ageGroup": "3-5 years",
+    "rating": 3.7,
+    "reviews": 82,
+    "artisan": {
+      "name": "Rajesh Rao",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468727-26",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.727Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Dog",
+    "description": "Beautiful handcrafted Dog toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 745,
+    "images": [
+      "/images/dog.jpg.jpeg"
+    ],
+    "category": "Vehicles",
+    "ageGroup": "6-8 years",
+    "rating": 4.3,
+    "reviews": 11,
+    "artisan": {
+      "name": "Meera Patel",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468727-27",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.727Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Doremon",
+    "description": "Beautiful handcrafted Doremon toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 608,
+    "images": [
+      "/images/doremon.jpg.jpeg"
+    ],
+    "category": "Dolls",
+    "ageGroup": "9+ years",
+    "rating": 3.9,
+    "reviews": 175,
+    "artisan": {
+      "name": "Priya Sharma",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468727-28",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.727Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Download ()",
+    "description": "Beautiful handcrafted Download () toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1548,
+    "images": [
+      "/images/download (2).jpg.jpeg"
+    ],
+    "category": "Educational Toys",
+    "ageGroup": "0-2 years",
+    "rating": 3.8,
+    "reviews": 98,
+    "artisan": {
+      "name": "Rajesh Rao",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468727-29",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.727Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Dubyduba",
+    "description": "Beautiful handcrafted Dubyduba toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 537,
+    "images": [
+      "/images/Dubyduba.jpg.jpeg"
+    ],
+    "category": "Animals",
+    "ageGroup": "3-5 years",
+    "rating": 4.8,
+    "reviews": 10,
+    "artisan": {
+      "name": "Meera Patel",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468727-30",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.727Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Ehoiotrxegvjpkmfk Peg Dolls  X Webp",
+    "description": "Beautiful handcrafted Ehoiotrxegvjpkmfk Peg Dolls  X Webp toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1301,
+    "images": [
+      "/images/e28HoiOtRxeGVjPKM5FK_peg dolls 7_621x375_webp.webp"
+    ],
+    "category": "Decorative Toys",
+    "ageGroup": "6-8 years",
+    "rating": 4.8,
+    "reviews": 177,
+    "artisan": {
+      "name": "Priya Sharma",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468728-31",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.728Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Elephant",
+    "description": "Beautiful handcrafted Elephant toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1320,
+    "images": [
+      "/images/elephant.jpg.jpeg"
+    ],
+    "category": "Baby Toys",
+    "ageGroup": "9+ years",
+    "rating": 4.8,
+    "reviews": 172,
+    "artisan": {
+      "name": "Rajesh Rao",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468728-32",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.728Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Channapatna Craft 33",
+    "description": "Beautiful handcrafted Channapatna Craft 33 toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 802,
+    "images": [
+      "/images/es01015_1.jpg.jpeg"
+    ],
+    "category": "Puzzle Toys",
+    "ageGroup": "0-2 years",
+    "rating": 4.4,
+    "reviews": 72,
+    "artisan": {
+      "name": "Meera Patel",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468728-33",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.728Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Farmer",
+    "description": "Beautiful handcrafted Farmer toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1333,
+    "images": [
+      "/images/farmer.jpg.jpeg"
+    ],
+    "category": "Vehicles",
+    "ageGroup": "3-5 years",
+    "rating": 4.2,
+    "reviews": 140,
+    "artisan": {
+      "name": "Priya Sharma",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468728-34",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.728Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Folk Dancer",
+    "description": "Beautiful handcrafted Folk Dancer toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 591,
+    "images": [
+      "/images/folk-dancer.jpg.jpeg"
+    ],
+    "category": "Dolls",
+    "ageGroup": "6-8 years",
+    "rating": 3.7,
+    "reviews": 136,
+    "artisan": {
+      "name": "Rajesh Rao",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468728-35",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.728Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Funwood Games Cartoon Character Matryoshka Nesting Doll",
+    "description": "Beautiful handcrafted Funwood Games Cartoon Character Matryoshka Nesting Doll toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 933,
+    "images": [
+      "/images/funwood-games-cartoon-character-matryoshka-nesting-doll.jpg.jpeg"
+    ],
+    "category": "Educational Toys",
+    "ageGroup": "9+ years",
+    "rating": 4.3,
+    "reviews": 186,
+    "artisan": {
+      "name": "Meera Patel",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468728-36",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.728Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Game",
+    "description": "Beautiful handcrafted Game toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1392,
+    "images": [
+      "/images/game.jpg.jpeg"
+    ],
+    "category": "Animals",
+    "ageGroup": "0-2 years",
+    "rating": 3.6,
+    "reviews": 10,
+    "artisan": {
+      "name": "Priya Sharma",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468728-37",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.728Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Girl",
+    "description": "Beautiful handcrafted Girl toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1237,
+    "images": [
+      "/images/girl.jpg.jpeg"
+    ],
+    "category": "Decorative Toys",
+    "ageGroup": "3-5 years",
+    "rating": 4.1,
+    "reviews": 72,
+    "artisan": {
+      "name": "Rajesh Rao",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468728-38",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.728Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Gkobjpbgaatjqz",
+    "description": "Beautiful handcrafted Gkobjpbgaatjqz toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1712,
+    "images": [
+      "/images/GKob3jPbgAATjqZ.jpg.jpeg"
+    ],
+    "category": "Baby Toys",
+    "ageGroup": "6-8 years",
+    "rating": 4.2,
+    "reviews": 98,
+    "artisan": {
+      "name": "Meera Patel",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468728-39",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.728Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Grinding Art",
+    "description": "Beautiful handcrafted Grinding Art toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1466,
+    "images": [
+      "/images/grinding-art.jpg.jpeg"
+    ],
+    "category": "Puzzle Toys",
+    "ageGroup": "9+ years",
+    "rating": 4.1,
+    "reviews": 82,
+    "artisan": {
+      "name": "Priya Sharma",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468728-40",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.728Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Helicopter",
+    "description": "Beautiful handcrafted Helicopter toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 543,
+    "images": [
+      "/images/helicopter.jpg.jpeg"
+    ],
+    "category": "Vehicles",
+    "ageGroup": "0-2 years",
+    "rating": 3.5,
+    "reviews": 44,
+    "artisan": {
+      "name": "Rajesh Rao",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468728-41",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.728Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Horse",
+    "description": "Beautiful handcrafted Horse toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1425,
+    "images": [
+      "/images/horse.jpg.jpeg"
+    ],
+    "category": "Dolls",
+    "ageGroup": "3-5 years",
+    "rating": 3.8,
+    "reviews": 149,
+    "artisan": {
+      "name": "Meera Patel",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468728-42",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.728Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Images ()",
+    "description": "Beautiful handcrafted Images () toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 2026,
+    "images": [
+      "/images/images (10).jpg.jpeg"
+    ],
+    "category": "Educational Toys",
+    "ageGroup": "6-8 years",
+    "rating": 4.8,
+    "reviews": 199,
+    "artisan": {
+      "name": "Priya Sharma",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468728-43",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.728Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Images ()",
+    "description": "Beautiful handcrafted Images () toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1437,
+    "images": [
+      "/images/images (13).jpg.jpeg"
+    ],
+    "category": "Animals",
+    "ageGroup": "9+ years",
+    "rating": 3.6,
+    "reviews": 119,
+    "artisan": {
+      "name": "Rajesh Rao",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468728-44",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.728Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Images ()",
+    "description": "Beautiful handcrafted Images () toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1564,
+    "images": [
+      "/images/images (15).jpg.jpeg"
+    ],
+    "category": "Decorative Toys",
+    "ageGroup": "0-2 years",
+    "rating": 3.8,
+    "reviews": 12,
+    "artisan": {
+      "name": "Meera Patel",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468728-45",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.728Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Images ()",
+    "description": "Beautiful handcrafted Images () toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 712,
+    "images": [
+      "/images/images (18).jpg.jpeg"
+    ],
+    "category": "Baby Toys",
+    "ageGroup": "3-5 years",
+    "rating": 4.4,
+    "reviews": 67,
+    "artisan": {
+      "name": "Priya Sharma",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468728-46",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.728Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Images ()",
+    "description": "Beautiful handcrafted Images () toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 566,
+    "images": [
+      "/images/images (19).jpg.jpeg"
+    ],
+    "category": "Puzzle Toys",
+    "ageGroup": "6-8 years",
+    "rating": 4,
+    "reviews": 85,
+    "artisan": {
+      "name": "Rajesh Rao",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468728-47",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.728Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Images ()",
+    "description": "Beautiful handcrafted Images () toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1778,
+    "images": [
+      "/images/images (21).jpg.jpeg"
+    ],
+    "category": "Vehicles",
+    "ageGroup": "9+ years",
+    "rating": 4.1,
+    "reviews": 143,
+    "artisan": {
+      "name": "Meera Patel",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468728-48",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.728Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Images ()",
+    "description": "Beautiful handcrafted Images () toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 2222,
+    "images": [
+      "/images/images (22).jpg.jpeg"
+    ],
+    "category": "Dolls",
+    "ageGroup": "0-2 years",
+    "rating": 4.3,
+    "reviews": 191,
+    "artisan": {
+      "name": "Priya Sharma",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468728-49",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.728Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Images ()",
+    "description": "Beautiful handcrafted Images () toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 2216,
+    "images": [
+      "/images/images (3).jpg.jpeg"
+    ],
+    "category": "Educational Toys",
+    "ageGroup": "3-5 years",
+    "rating": 3.9,
+    "reviews": 21,
+    "artisan": {
+      "name": "Rajesh Rao",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468729-50",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.729Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Images ()",
+    "description": "Beautiful handcrafted Images () toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 540,
+    "images": [
+      "/images/images (6).jpg.jpeg"
+    ],
+    "category": "Animals",
+    "ageGroup": "6-8 years",
+    "rating": 3.9,
+    "reviews": 121,
+    "artisan": {
+      "name": "Meera Patel",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468729-51",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.729Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Images ()",
+    "description": "Beautiful handcrafted Images () toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 837,
+    "images": [
+      "/images/images (8).jpg.jpeg"
+    ],
+    "category": "Decorative Toys",
+    "ageGroup": "9+ years",
+    "rating": 3.5,
+    "reviews": 138,
+    "artisan": {
+      "name": "Priya Sharma",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468729-52",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.729Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Images",
+    "description": "Beautiful handcrafted Images toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 561,
+    "images": [
+      "/images/images.jpg.jpeg"
+    ],
+    "category": "Baby Toys",
+    "ageGroup": "0-2 years",
+    "rating": 4.2,
+    "reviews": 80,
+    "artisan": {
+      "name": "Rajesh Rao",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468729-53",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.729Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Kerala",
+    "description": "Beautiful handcrafted Kerala toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1901,
+    "images": [
+      "/images/kerala.jpg.jpeg"
+    ],
+    "category": "Puzzle Toys",
+    "ageGroup": "3-5 years",
+    "rating": 4.6,
+    "reviews": 81,
+    "artisan": {
+      "name": "Meera Patel",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468729-54",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.729Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Kit",
+    "description": "Beautiful handcrafted Kit toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 506,
+    "images": [
+      "/images/kit.jpg.jpeg"
+    ],
+    "category": "Vehicles",
+    "ageGroup": "6-8 years",
+    "rating": 3.9,
+    "reviews": 79,
+    "artisan": {
+      "name": "Priya Sharma",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468729-55",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.729Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Krishna",
+    "description": "Beautiful handcrafted Krishna toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 804,
+    "images": [
+      "/images/krishna.jpg.jpeg"
+    ],
+    "category": "Dolls",
+    "ageGroup": "9+ years",
+    "rating": 4.4,
+    "reviews": 201,
+    "artisan": {
+      "name": "Rajesh Rao",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468729-56",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.729Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Lion",
+    "description": "Beautiful handcrafted Lion toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1371,
+    "images": [
+      "/images/lion.jpg.jpeg"
+    ],
+    "category": "Educational Toys",
+    "ageGroup": "0-2 years",
+    "rating": 4.4,
+    "reviews": 74,
+    "artisan": {
+      "name": "Meera Patel",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468729-57",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.729Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Memo",
+    "description": "Beautiful handcrafted Memo toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 2375,
+    "images": [
+      "/images/memo.jpg.jpeg"
+    ],
+    "category": "Animals",
+    "ageGroup": "3-5 years",
+    "rating": 4.8,
+    "reviews": 202,
+    "artisan": {
+      "name": "Priya Sharma",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468729-58",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.729Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Motu",
+    "description": "Beautiful handcrafted Motu toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1362,
+    "images": [
+      "/images/motu.jpg.jpeg"
+    ],
+    "category": "Decorative Toys",
+    "ageGroup": "6-8 years",
+    "rating": 4,
+    "reviews": 174,
+    "artisan": {
+      "name": "Rajesh Rao",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468729-59",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.729Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Mouse",
+    "description": "Beautiful handcrafted Mouse toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1901,
+    "images": [
+      "/images/mouse.jpg.jpeg"
+    ],
+    "category": "Baby Toys",
+    "ageGroup": "9+ years",
+    "rating": 4.5,
+    "reviews": 117,
+    "artisan": {
+      "name": "Meera Patel",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468729-60",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.729Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Mr Mrs",
+    "description": "Beautiful handcrafted Mr Mrs toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1622,
+    "images": [
+      "/images/mr-mrs.jpg.jpeg"
+    ],
+    "category": "Puzzle Toys",
+    "ageGroup": "0-2 years",
+    "rating": 3.7,
+    "reviews": 195,
+    "artisan": {
+      "name": "Priya Sharma",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468729-61",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.729Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Music",
+    "description": "Beautiful handcrafted Music toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1284,
+    "images": [
+      "/images/music.jpg.jpeg"
+    ],
+    "category": "Vehicles",
+    "ageGroup": "3-5 years",
+    "rating": 4.2,
+    "reviews": 96,
+    "artisan": {
+      "name": "Rajesh Rao",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468729-62",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.729Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Princess",
+    "description": "Beautiful handcrafted Princess toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 2469,
+    "images": [
+      "/images/princess.jpg.jpeg"
+    ],
+    "category": "Dolls",
+    "ageGroup": "6-8 years",
+    "rating": 3.8,
+    "reviews": 121,
+    "artisan": {
+      "name": "Meera Patel",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468729-63",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.729Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Profissional",
+    "description": "Beautiful handcrafted Profissional toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1861,
+    "images": [
+      "/images/profissional.jpg.jpeg"
+    ],
+    "category": "Educational Toys",
+    "ageGroup": "9+ years",
+    "rating": 4.2,
+    "reviews": 84,
+    "artisan": {
+      "name": "Priya Sharma",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468729-64",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.729Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Puzzle",
+    "description": "Beautiful handcrafted Puzzle toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 511,
+    "images": [
+      "/images/puzzle.jpg.jpeg"
+    ],
+    "category": "Animals",
+    "ageGroup": "0-2 years",
+    "rating": 4.3,
+    "reviews": 73,
+    "artisan": {
+      "name": "Rajesh Rao",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468729-65",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.729Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Rattle",
+    "description": "Beautiful handcrafted Rattle toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1360,
+    "images": [
+      "/images/rattle.jpg.jpeg"
+    ],
+    "category": "Decorative Toys",
+    "ageGroup": "3-5 years",
+    "rating": 3.8,
+    "reviews": 155,
+    "artisan": {
+      "name": "Meera Patel",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468729-66",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.729Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Channapatna Craft 67",
+    "description": "Beautiful handcrafted Channapatna Craft 67 toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1073,
+    "images": [
+      "/images/sp.jpg.jpeg"
+    ],
+    "category": "Baby Toys",
+    "ageGroup": "6-8 years",
+    "rating": 4.5,
+    "reviews": 23,
+    "artisan": {
+      "name": "Priya Sharma",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468729-67",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.729Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Spinner",
+    "description": "Beautiful handcrafted Spinner toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 2390,
+    "images": [
+      "/images/spinner.jpg.jpeg"
+    ],
+    "category": "Puzzle Toys",
+    "ageGroup": "9+ years",
+    "rating": 5,
+    "reviews": 198,
+    "artisan": {
+      "name": "Rajesh Rao",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468729-68",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.729Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Spinner Set",
+    "description": "Beautiful handcrafted Spinner Set toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 558,
+    "images": [
+      "/images/spinner_set.jpg.jpeg"
+    ],
+    "category": "Vehicles",
+    "ageGroup": "0-2 years",
+    "rating": 4.3,
+    "reviews": 83,
+    "artisan": {
+      "name": "Meera Patel",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468729-69",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.729Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Stacker",
+    "description": "Beautiful handcrafted Stacker toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1132,
+    "images": [
+      "/images/stacker.jpg.jpeg"
+    ],
+    "category": "Dolls",
+    "ageGroup": "3-5 years",
+    "rating": 3.7,
+    "reviews": 183,
+    "artisan": {
+      "name": "Priya Sharma",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468729-70",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.729Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Sub",
+    "description": "Beautiful handcrafted Sub toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 971,
+    "images": [
+      "/images/sub-1.jpg.jpeg"
+    ],
+    "category": "Educational Toys",
+    "ageGroup": "6-8 years",
+    "rating": 4.1,
+    "reviews": 75,
+    "artisan": {
+      "name": "Rajesh Rao",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468729-71",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.729Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Sub",
+    "description": "Beautiful handcrafted Sub toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1570,
+    "images": [
+      "/images/sub-10.jpg.jpeg"
+    ],
+    "category": "Animals",
+    "ageGroup": "9+ years",
+    "rating": 4.5,
+    "reviews": 28,
+    "artisan": {
+      "name": "Meera Patel",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468729-72",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.729Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Sub",
+    "description": "Beautiful handcrafted Sub toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1300,
+    "images": [
+      "/images/sub-2.jpg.jpeg"
+    ],
+    "category": "Decorative Toys",
+    "ageGroup": "0-2 years",
+    "rating": 3.9,
+    "reviews": 77,
+    "artisan": {
+      "name": "Priya Sharma",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468730-73",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.730Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Sub",
+    "description": "Beautiful handcrafted Sub toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 2206,
+    "images": [
+      "/images/sub-4.jpg.jpeg"
+    ],
+    "category": "Baby Toys",
+    "ageGroup": "3-5 years",
+    "rating": 4.2,
+    "reviews": 48,
+    "artisan": {
+      "name": "Rajesh Rao",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468730-74",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.730Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Sub",
+    "description": "Beautiful handcrafted Sub toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 753,
+    "images": [
+      "/images/sub-5.jpg.jpeg"
+    ],
+    "category": "Puzzle Toys",
+    "ageGroup": "6-8 years",
+    "rating": 3.9,
+    "reviews": 72,
+    "artisan": {
+      "name": "Meera Patel",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468730-75",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.730Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Sub",
+    "description": "Beautiful handcrafted Sub toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1352,
+    "images": [
+      "/images/sub-6.jpg.jpeg"
+    ],
+    "category": "Vehicles",
+    "ageGroup": "9+ years",
+    "rating": 4.1,
+    "reviews": 23,
+    "artisan": {
+      "name": "Priya Sharma",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468730-76",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.730Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Sub",
+    "description": "Beautiful handcrafted Sub toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1382,
+    "images": [
+      "/images/sub-7.jpg.jpeg"
+    ],
+    "category": "Dolls",
+    "ageGroup": "0-2 years",
+    "rating": 4.3,
+    "reviews": 93,
+    "artisan": {
+      "name": "Rajesh Rao",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468730-77",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.730Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Sub",
+    "description": "Beautiful handcrafted Sub toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 543,
+    "images": [
+      "/images/sub-8.jpg.jpeg"
+    ],
+    "category": "Educational Toys",
+    "ageGroup": "3-5 years",
+    "rating": 3.7,
+    "reviews": 71,
+    "artisan": {
+      "name": "Meera Patel",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468730-78",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.730Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Sub",
+    "description": "Beautiful handcrafted Sub toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 671,
+    "images": [
+      "/images/sub-9.jpg.jpeg"
+    ],
+    "category": "Animals",
+    "ageGroup": "6-8 years",
+    "rating": 3.6,
+    "reviews": 77,
+    "artisan": {
+      "name": "Priya Sharma",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468730-79",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.730Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Tempo",
+    "description": "Beautiful handcrafted Tempo toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1362,
+    "images": [
+      "/images/tempo.jpg.jpeg"
+    ],
+    "category": "Decorative Toys",
+    "ageGroup": "9+ years",
+    "rating": 4.1,
+    "reviews": 51,
+    "artisan": {
+      "name": "Rajesh Rao",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468730-80",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.730Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Tictactoe",
+    "description": "Beautiful handcrafted Tictactoe toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 862,
+    "images": [
+      "/images/TicTacToe.jpg.jpeg"
+    ],
+    "category": "Baby Toys",
+    "ageGroup": "0-2 years",
+    "rating": 4.9,
+    "reviews": 72,
+    "artisan": {
+      "name": "Meera Patel",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468730-81",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.730Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Tracter",
+    "description": "Beautiful handcrafted Tracter toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 2019,
+    "images": [
+      "/images/Tracter.jpg.jpeg"
+    ],
+    "category": "Puzzle Toys",
+    "ageGroup": "3-5 years",
+    "rating": 4.5,
+    "reviews": 140,
+    "artisan": {
+      "name": "Priya Sharma",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468730-82",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.730Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Train",
+    "description": "Beautiful handcrafted Train toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1305,
+    "images": [
+      "/images/train.jpg.jpeg"
+    ],
+    "category": "Vehicles",
+    "ageGroup": "6-8 years",
+    "rating": 4.9,
+    "reviews": 72,
+    "artisan": {
+      "name": "Rajesh Rao",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468730-83",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.730Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Trako Red",
+    "description": "Beautiful handcrafted Trako Red toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 681,
+    "images": [
+      "/images/Trako-red.jpg.jpeg"
+    ],
+    "category": "Dolls",
+    "ageGroup": "9+ years",
+    "rating": 4.2,
+    "reviews": 91,
+    "artisan": {
+      "name": "Meera Patel",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468731-84",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.731Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Vibe",
+    "description": "Beautiful handcrafted Vibe toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1146,
+    "images": [
+      "/images/vibe.jpg.jpeg"
+    ],
+    "category": "Educational Toys",
+    "ageGroup": "0-2 years",
+    "rating": 3.7,
+    "reviews": 142,
+    "artisan": {
+      "name": "Priya Sharma",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468731-85",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.731Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Village",
+    "description": "Beautiful handcrafted Village toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1153,
+    "images": [
+      "/images/village.jpg.jpeg"
+    ],
+    "category": "Animals",
+    "ageGroup": "3-5 years",
+    "rating": 4.8,
+    "reviews": 124,
+    "artisan": {
+      "name": "Rajesh Rao",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468731-86",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.731Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Wedding Dolls",
+    "description": "Beautiful handcrafted Wedding Dolls toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 587,
+    "images": [
+      "/images/wedding-dolls.jpg.jpeg"
+    ],
+    "category": "Decorative Toys",
+    "ageGroup": "6-8 years",
+    "rating": 3.7,
+    "reviews": 187,
+    "artisan": {
+      "name": "Meera Patel",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468731-87",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.731Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Women",
+    "description": "Beautiful handcrafted Women toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 2387,
+    "images": [
+      "/images/women.jpg.jpeg"
+    ],
+    "category": "Baby Toys",
+    "ageGroup": "9+ years",
+    "rating": 4.9,
+    "reviews": 42,
+    "artisan": {
+      "name": "Priya Sharma",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468731-88",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.731Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Wooden Birds",
+    "description": "Beautiful handcrafted Wooden Birds toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1040,
+    "images": [
+      "/images/wooden-birds.jpg.jpeg"
+    ],
+    "category": "Puzzle Toys",
+    "ageGroup": "0-2 years",
+    "rating": 3.9,
+    "reviews": 42,
+    "artisan": {
+      "name": "Rajesh Rao",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468731-89",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.731Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Wooden Football",
+    "description": "Beautiful handcrafted Wooden Football toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 2277,
+    "images": [
+      "/images/Wooden-football.jpg.jpeg"
+    ],
+    "category": "Vehicles",
+    "ageGroup": "3-5 years",
+    "rating": 4.8,
+    "reviews": 7,
+    "artisan": {
+      "name": "Meera Patel",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468731-90",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.731Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Wooden Kitchen Set Toy For Kids",
+    "description": "Beautiful handcrafted Wooden Kitchen Set Toy For Kids toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 961,
+    "images": [
+      "/images/wooden-kitchen-set-toy-for-kids.jpg.jpeg"
+    ],
+    "category": "Dolls",
+    "ageGroup": "6-8 years",
+    "rating": 4.7,
+    "reviews": 155,
+    "artisan": {
+      "name": "Priya Sharma",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468731-91",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.731Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Wooden Racing Car Toy",
+    "description": "Beautiful handcrafted Wooden Racing Car Toy toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1071,
+    "images": [
+      "/images/wooden-racing-car-toy.jpg.jpeg"
+    ],
+    "category": "Educational Toys",
+    "ageGroup": "9+ years",
+    "rating": 3.6,
+    "reviews": 107,
+    "artisan": {
+      "name": "Rajesh Rao",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468731-92",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.731Z",
+        "user": "Artisan"
+      }
+    ]
+  },
+  {
+    "name": "Wooden Wooden Wooden Scooter Toy",
+    "description": "Beautiful handcrafted Wooden Wooden Scooter Toy toy. Made with sustainable ivory wood (Aale Mara) and colored with vibrant natural vegetable dyes. Perfect for all ages.",
+    "price": 1162,
+    "images": [
+      "/images/wooden-wooden-scooter-toy-.jpg.jpeg"
+    ],
+    "category": "Animals",
+    "ageGroup": "0-2 years",
+    "rating": 4.9,
+    "reviews": 138,
+    "artisan": {
+      "name": "Meera Patel",
+      "location": "Channapatna, Karnataka",
+      "story": "A dedicated artisan crafting beautiful sustainable toys."
+    },
+    "uniqueId": "CH-468731-93",
+    "isAdoptable": true,
+    "history": [
+      {
+        "event": "Crafted on traditional lathe",
+        "date": "2026-03-21T05:21:08.731Z",
+        "user": "Artisan"
+      }
+    ]
+  }
+]
