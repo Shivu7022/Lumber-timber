@@ -9,6 +9,7 @@
     --text-primary: #111827;
     --text-secondary: #4b5563;
     --accent: #8b4513; 
+    --text-on-accent: #ffffff;
     --border-color: #e5e7eb;
     --shadow-color: rgba(0, 0, 0, 0.1);
   }
@@ -19,6 +20,7 @@
     --text-primary: #f8fafc;
     --text-secondary: #94a3b8;
     --accent: #fcd34d;
+    --text-on-accent: #111827;
     --border-color: #334155;
     --shadow-color: rgba(0, 0, 0, 0.5);
   }
@@ -29,6 +31,7 @@
     --text-primary: #2c1a0e;
     --text-secondary: #5a3d2b;
     --accent: #8b4513;
+    --text-on-accent: #ffffff;
     --border-color: #d7c9b8;
     --shadow-color: rgba(139, 69, 19, 0.15);
   }
@@ -46,10 +49,11 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-[var(--accent)] text-white px-6 py-3 rounded-xl font-bold transition-all duration-300 transform 
+    @apply bg-[var(--accent)] px-6 py-3 rounded-xl font-bold transition-all duration-300 transform 
            shadow-[0_4px_0_var(--shadow-color)]
            hover:-translate-y-1 hover:shadow-[0_6px_0_var(--shadow-color)]
            active:translate-y-1 active:shadow-none;
+    color: var(--text-on-accent);
   }
 
   .card {
@@ -60,6 +64,10 @@
 }
 
 @layer utilities {
+  .text-on-accent {
+    color: var(--text-on-accent) !important;
+  }
+  
   /* Fixes a widespread bug where text-primary accidentally mapped to the background color in non-dark themes */
   .text-primary {
     color: var(--text-primary) !important;

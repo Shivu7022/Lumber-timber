@@ -16,6 +16,8 @@ const Navbar = () => {
   const [isThemeOpen, setIsThemeOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isNotifOpen, setIsNotifOpen] = useState(false);
+  const [isQuickLinksOpen, setIsQuickLinksOpen] = useState(false);
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
 
   const categories = ['Baby Toys', 'Educational Toys', 'Decorative Toys', 'Puzzle Toys'];
 
@@ -168,6 +170,58 @@ const Navbar = () => {
                           {cat}
                         </Link>
                       ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Quick Links Expander */}
+              <div className="border-b border-borderColor py-4">
+                <button
+                  onClick={() => setIsQuickLinksOpen(!isQuickLinksOpen)}
+                  className="w-full flex justify-between items-center text-lg font-bold text-textMain hover:text-accent"
+                >
+                  <div className="flex items-center gap-3"><span className="text-2xl">🔗</span> Quick Links</div>
+                  <ChevronDown size={20} className={`transition-transform duration-300 ${isQuickLinksOpen ? 'rotate-180' : ''}`} />
+                </button>
+                <AnimatePresence>
+                  {isQuickLinksOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      className="overflow-hidden mt-3 pl-10 flex flex-col space-y-4"
+                    >
+                      <Link to="/products" onClick={() => setIsMobileMenuOpen(false)} className="text-textMuted hover:text-accent font-medium">Our Toys</Link>
+                      <Link to="/adopt" onClick={() => setIsMobileMenuOpen(false)} className="text-textMuted hover:text-accent font-medium">Adopt a Toy</Link>
+                      <Link to="/subscribe" onClick={() => setIsMobileMenuOpen(false)} className="text-textMuted hover:text-accent font-medium">Subscription Box</Link>
+                      <Link to="/about" onClick={() => setIsMobileMenuOpen(false)} className="text-textMuted hover:text-accent font-medium">Our Story</Link>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Services Expander */}
+              <div className="border-b border-borderColor py-4 mb-4">
+                <button
+                  onClick={() => setIsServicesOpen(!isServicesOpen)}
+                  className="w-full flex justify-between items-center text-lg font-bold text-textMain hover:text-accent"
+                >
+                  <div className="flex items-center gap-3"><span className="text-2xl">🛠️</span> Services</div>
+                  <ChevronDown size={20} className={`transition-transform duration-300 ${isServicesOpen ? 'rotate-180' : ''}`} />
+                </button>
+                <AnimatePresence>
+                  {isServicesOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      className="overflow-hidden mt-3 pl-10 flex flex-col space-y-4"
+                    >
+                      <Link to="/repair" onClick={() => setIsMobileMenuOpen(false)} className="text-textMuted hover:text-accent font-medium">Repair & Repaint</Link>
+                      <Link to="/return" onClick={() => setIsMobileMenuOpen(false)} className="text-textMuted hover:text-accent font-medium">Return & Earn</Link>
+                      <Link to="/faq" onClick={() => setIsMobileMenuOpen(false)} className="text-textMuted hover:text-accent font-medium">FAQ</Link>
+                      <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)} className="text-textMuted hover:text-accent font-medium">Contact Us</Link>
                     </motion.div>
                   )}
                 </AnimatePresence>

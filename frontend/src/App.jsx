@@ -14,6 +14,12 @@ import Adopt from './pages/Adopt';
 import Wishlist from './pages/Wishlist';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Contact from './pages/Contact';
+import FAQ from './pages/FAQ';
+import Subscribe from './pages/Subscribe';
+import About from './pages/About';
+import Repair from './pages/Repair';
+import Return from './pages/Return';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './contexts/AuthContext';
 import { CartProvider } from './contexts/CartContext';
@@ -64,6 +70,12 @@ function App() {
                 </ProtectedRoute>
               } />
               <Route path="/adopt" element={<Adopt />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/subscribe" element={<Subscribe />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/repair" element={<Repair />} />
+              <Route path="/return" element={<Return />} />
               <Route path="*" element={<NotFound />} />
             </Route>
 

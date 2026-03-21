@@ -284,7 +284,7 @@ const Login = () => {
               <button 
                 type="submit" 
                 disabled={loading || lockoutTimer > 0}
-                className={`w-full text-white py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors disabled:opacity-70 shadow-lg ${portal === 'admin' ? 'bg-red-600 hover:bg-red-700 shadow-red-600/30' : 'bg-accent hover:bg-green-700 shadow-accent/30'}`}
+                className={`w-full py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors disabled:opacity-70 shadow-lg ${portal === 'admin' ? 'bg-red-600 text-white hover:bg-red-700 shadow-red-600/30' : 'bg-accent text-on-accent hover:brightness-90 shadow-accent/30'}`}
               >
                 {lockoutTimer > 0 ? (
                   `Try again in ${lockoutTimer}s`
@@ -345,7 +345,7 @@ const Login = () => {
               <button 
                 type="submit" 
                 disabled={loading || !identifier || (otpSent && otp.join('').length !== 6)}
-                className="w-full bg-accent text-white py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-green-700 transition-colors disabled:opacity-70 disabled:bg-gray-400 shadow-lg"
+                className="w-full bg-accent text-on-accent py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:brightness-90 transition-colors disabled:opacity-70 disabled:bg-gray-400 shadow-lg"
               >
                 {loading ? <RefreshCw size={20} className="animate-spin" /> : (otpSent ? 'Verify & Sign In' : 'Send OTP')}
               </button>

@@ -472,10 +472,21 @@ function OrdersTab({ orders, onRefresh }) {
 }
 
 function ReturnsTab({ repairs, onRefresh }) {
-  const handleApprove = async (id) => {
+  const handleApprove = async (id, requestType) => {
+    let creditAmount = 0;
+    if (requestType === 'return') {
+      const amountStr = window.prompt("Enter the amount of Store Credits to reward the user for this Resell (Adoption):", "0");
+      if (amountStr === null) return; // Admin cancelled
+      creditAmount = Number(amountStr);
+      if (isNaN(creditAmount) || creditAmount < 0) {
+        toast.error("Invalid credit amount.");
+        return;
+      }
+    }
+
     try {
-       await axiosClient.put(`/api/repairs/${id}`, { status: 'completed' });
-       toast.success("Marked as Completed");
+       await axiosClient.put(`/api/repairs/${id}`, { status: 'completed', creditAmount });
+       toast.success(requestType === 'return' ? `Marked as Completed & ₹${creditAmount} credits awarded!` : "Marked as Completed");
        onRefresh();
     } catch(err) {
        toast.error("Failed to update status");
@@ -492,9 +503,10 @@ function ReturnsTab({ repairs, onRefresh }) {
         <table className="w-full text-left text-sm text-textMuted">
           <thead className="bg-secondary text-textMain font-bold border-b border-borderColor">
             <tr>
+              <th className="px-6 py-4">Type</th>
               <th className="px-6 py-4">User</th>
               <th className="px-6 py-4">Toy</th>
-              <th className="px-6 py-4">Issue</th>
+              <th className="px-6 py-4">Issue / Condition</th>
               <th className="px-6 py-4">Status</th>
               <th className="px-6 py-4 text-right">Action</th>
             </tr>
@@ -502,6 +514,13 @@ function ReturnsTab({ repairs, onRefresh }) {
           <tbody>
             {repairs.map((r) => (
               <tr key={r._id} className="border-b border-borderColor hover:bg-secondary transition-colors duration-300">
+                <td className="px-6 py-4">
+                  <span className={`px-3 py-1 rounded-full text-xs font-bold ${
+                    r.requestType === 'return' ? 'bg-indigo-100 text-indigo-800' : 'bg-orange-100 text-orange-800'
+                  }`}>
+                    {r.requestType === 'return' ? 'Resell (Adoption)' : 'Repair'}
+                  </span>
+                </td>
                 <td className="px-6 py-4 font-bold">{r.user?.name || 'User'}</td>
                 <td className="px-6 py-4">{r.toy?.name || 'Toy Item'}</td>
                 <td className="px-6 py-4">
@@ -515,7 +534,7 @@ function ReturnsTab({ repairs, onRefresh }) {
                 </td>
                 <td className="px-6 py-4 text-right">
                   {r.status !== 'completed' ? (
-                     <button onClick={() => handleApprove(r._id)} className="bg-green-600 text-white px-3 py-1 rounded text-xs inline-block font-bold">Mark Complete</button>
+                     <button onClick={() => handleApprove(r._id, r.requestType)} className="bg-green-600 text-white px-3 py-1 rounded text-xs inline-block font-bold hover:bg-green-700">Manage Request</button>
                   ) : (
                      <span className="text-textMuted text-sm text-xs font-bold">Done</span>
                   )}
@@ -523,7 +542,7 @@ function ReturnsTab({ repairs, onRefresh }) {
               </tr>
             ))}
             {repairs.length === 0 && (
-              <tr><td colSpan="5" className="text-center py-10 font-bold text-gray-400">No active returns currently</td></tr>
+              <tr><td colSpan="6" className="text-center py-10 font-bold text-textMuted">No active requests currently</td></tr>
             )}
           </tbody>
         </table>

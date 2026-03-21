@@ -11,6 +11,11 @@ const RepairSchema = new mongoose.Schema({
     ref: 'Toy',
     required: true
   },
+  requestType: {
+    type: String,
+    enum: ['repair', 'return'],
+    default: 'repair'
+  },
   issue: {
     type: String,
     required: true

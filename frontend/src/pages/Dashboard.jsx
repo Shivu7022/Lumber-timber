@@ -17,8 +17,9 @@ const Dashboard = () => {
   const tabs = [
     { id: 'overview', label: 'Overview', icon: User },
     { id: 'orders', label: 'Orders', icon: Package },
-    { id: 'adoptions', label: 'Adoptions', icon: Heart },
+    { id: 'subscriptions', label: 'Subscriptions', icon: Heart },
     { id: 'repairs', label: 'Repairs', icon: RotateCcw },
+    { id: 'resell', label: 'Resell Toy', icon: Package },
     { id: 'credits', label: 'Credits', icon: CreditCard },
     { id: 'settings', label: 'Settings', icon: Settings }
   ];
@@ -57,12 +58,14 @@ const Dashboard = () => {
         return <OverviewTab {...sharedProps} />;
       case 'orders':
         return <OrdersTab orders={orders} loading={loading} error={error} />;
-      case 'adoptions':
-        return <AdoptionsTab orders={orders} subscriptions={subscriptions} loading={loading} error={error} />;
+      case 'subscriptions':
+        return <SubscriptionsTab subscriptions={subscriptions} loading={loading} error={error} />;
       case 'repairs':
-        return <RepairsTab repairs={repairs} loading={loading} error={error} />;
+        return <RepairsTab repairs={repairs} orders={orders} subscriptions={subscriptions} loading={loading} error={error} onRefresh={() => {}} />;
+      case 'resell':
+        return <ResellTab user={user} orders={orders} subscriptions={subscriptions} />;
       case 'credits':
-        return <CreditsTab user={user} orders={orders} />;
+        return <CreditsTab user={user} />;
       case 'settings':
         return <SettingsTab user={user} />;
       default:
@@ -265,12 +268,47 @@ const OrdersTab = ({ orders = [], loading, error }) => {
   );
 };
 
-const AdoptionsTab = ({ orders = [], subscriptions = [], loading, error }) => {
+const SubscriptionsTab = ({ subscriptions = [], loading, error }) => {
+  return (
+    <div className="card">
+      <h2 className="text-2xl font-bold text-textMain mb-6">My Subscriptions</h2>
+
+      {loading && <div className="text-center text-textMuted">Loading subscriptions…</div>}
+      {error && <div className="text-center text-red-600">{error}</div>}
+
+      <div className="space-y-4">
+        {subscriptions.length === 0 ? (
+          <div className="text-textMuted">No active subscriptions found.</div>
+        ) : (
+          subscriptions.map((sub) => (
+            <div key={sub._id || sub.id} className="p-4 border border-white/20 rounded-lg">
+              <div className="flex justify-between items-start mb-3">
+                <h3 className="text-lg font-semibold">{sub.plan || 'Subscription Plan'}</h3>
+                <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">
+                  Active
+                </span>
+              </div>
+              <div className="grid md:grid-cols-2 gap-4 text-sm">
+                <p><span className="font-semibold">Started:</span> {new Date(sub.createdAt || sub.date || Date.now()).toLocaleDateString()}</p>
+                <p><span className="font-semibold">Duration:</span> {sub.duration || 'Monthly'}</p>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+    </div>
+  );
+};
+
+const RepairsTab = ({ repairs = [], orders = [], subscriptions = [], loading, error }) => {
   const [selectedToyId, setSelectedToyId] = useState('');
   const [issue, setIssue] = useState('Broken part');
   const [description, setDescription] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
+  // Users must have a subscription to use this service
+  const hasSubscription = subscriptions.length > 0;
+  
   const allToys = orders.flatMap((order) => order.toys?.map((item) => item.toy)).filter(Boolean);
   const toyOptions = Array.from(new Map(allToys.map((toy) => [toy._id, toy])).values());
 
@@ -305,44 +343,28 @@ const AdoptionsTab = ({ orders = [], subscriptions = [], loading, error }) => {
   };
 
   return (
-    <div className="card">
-      <h2 className="text-2xl font-bold text-textMain mb-6">My Adopted Toys</h2>
-
-      {loading && <div className="text-center text-textMuted">Loading adoptions…</div>}
-      {error && <div className="text-center text-red-600">{error}</div>}
-
-      <div className="space-y-4">
-        {subscriptions.length === 0 ? (
-          <div className="text-textMuted">No adoptions found.</div>
+    <div className="space-y-6">
+      <div className="card">
+        <h2 className="text-2xl font-bold text-textMain mb-6 flex items-center gap-2">Request a Repair & Repaint</h2>
+        
+        {!hasSubscription ? (
+          <div className="bg-gradient-to-r from-orange-50 to-amber-50 p-6 rounded-2xl border border-orange-200 text-center">
+             <RotateCcw size={48} className="mx-auto text-orange-400 mb-4" />
+             <h3 className="text-xl font-bold text-orange-900 mb-2">Exclusive Subscriber Perk!</h3>
+             <p className="text-orange-800 mb-6">Our professional repair and repaint services are exclusively available to members of our Subscription Box program.</p>
+             <a href="/subscribe" className="inline-block bg-accent px-6 py-3 rounded-full text-white font-bold hover:bg-accent/90 shadow-md">Join Now to Unlock Repairs</a>
+          </div>
+        ) : toyOptions.length === 0 ? (
+          <div className="text-textMuted bg-secondary p-4 rounded-lg border border-borderColor">You need to place an order first before you can request a repair for a toy.</div>
         ) : (
-          subscriptions.map((sub) => (
-            <div key={sub._id || sub.id} className="p-4 border border-white/20 rounded-lg">
-              <div className="flex justify-between items-start mb-3">
-                <h3 className="text-lg font-semibold">{sub.plan || 'Subscription'}</h3>
-                <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">
-                  Active
-                </span>
-              </div>
-              <div className="grid md:grid-cols-2 gap-4 text-sm">
-                <p><span className="font-semibold">Started:</span> {new Date(sub.createdAt || sub.date || Date.now()).toLocaleDateString()}</p>
-                <p><span className="font-semibold">Duration:</span> {sub.duration || 'Monthly'}</p>
-              </div>
-            </div>
-          ))
-        )}
-
-        <div className="p-4 border border-white/20 rounded-lg">
-          <h3 className="text-lg font-semibold mb-4">Request a Repair</h3>
-          {toyOptions.length === 0 ? (
-            <div className="text-textMuted">Place an order first to request a repair.</div>
-          ) : (
-            <form className="space-y-4" onSubmit={handleRequestRepair}>
+          <form className="space-y-4" onSubmit={handleRequestRepair}>
+            <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-semibold mb-2">Toy</label>
+                <label className="block text-sm font-semibold mb-2">Select Toy</label>
                 <select
                   value={selectedToyId}
                   onChange={(e) => setSelectedToyId(e.target.value)}
-                  className="w-full px-4 py-3 rounded-lg border border-borderColor bg-secondary focus:outline-none focus:ring-2 focus:ring-primary text-textMain"
+                  className="w-full px-4 py-3 rounded-lg border border-borderColor bg-secondary focus:outline-none focus:ring-2 focus:ring-accent text-textMain"
                 >
                   {toyOptions.map((toy) => (
                     <option key={toy._id} value={toy._id}>
@@ -353,34 +375,67 @@ const AdoptionsTab = ({ orders = [], subscriptions = [], loading, error }) => {
               </div>
 
               <div>
-                <label className="block text-sm font-semibold mb-2">Issue</label>
+                <label className="block text-sm font-semibold mb-2">Issue Type</label>
                 <select
                   value={issue}
                   onChange={(e) => setIssue(e.target.value)}
-                  className="w-full px-4 py-3 rounded-lg border border-borderColor bg-secondary focus:outline-none focus:ring-2 focus:ring-primary text-textMain"
+                  className="w-full px-4 py-3 rounded-lg border border-borderColor bg-secondary focus:outline-none focus:ring-2 focus:ring-accent text-textMain"
                 >
                   <option>Broken part</option>
                   <option>Missing pieces</option>
+                  <option>Paint chipped</option>
                   <option>Not working</option>
                   <option>Other</option>
                 </select>
               </div>
+            </div>
 
-              <div>
-                <label className="block text-sm font-semibold mb-2">Description</label>
-                <textarea
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  rows={3}
-                  className="w-full px-4 py-3 rounded-lg border border-borderColor bg-secondary focus:outline-none focus:ring-2 focus:ring-primary text-textMain"
-                  placeholder="Describe the issue"
-                />
+            <div>
+              <label className="block text-sm font-semibold mb-2">Description / Notes</label>
+              <textarea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                rows={3}
+                className="w-full px-4 py-3 rounded-lg border border-borderColor bg-secondary focus:outline-none focus:ring-2 focus:ring-accent text-textMain"
+                placeholder="Give us more details so the artisan knows what to fix..."
+              />
+            </div>
+
+            <button type="submit" className="btn-primary" disabled={submitting}>
+              {submitting ? 'Submitting Request…' : 'Submit Repair Request'}
+            </button>
+          </form>
+        )}
+      </div>
+
+      <div className="card">
+        <h2 className="text-2xl font-bold text-textMain mb-6">My Repair History</h2>
+        {loading && <div className="text-center text-textMuted">Loading repairs…</div>}
+        {error && <div className="text-center text-red-600">{error}</div>}
+
+        <div className="space-y-4">
+          {repairs.length === 0 ? (
+            <div className="text-textMuted">No past repair requests found.</div>
+          ) : (
+            repairs.map((repair) => (
+              <div key={repair._id || repair.id} className="p-4 border border-borderColor rounded-lg bg-secondary/50">
+                <div className="flex flex-wrap justify-between items-start gap-4 mb-3">
+                  <div>
+                    <h3 className="text-lg font-bold text-textMain">{repair.toy?.name || 'Repair Request'}</h3>
+                    <p className="text-sm font-medium text-textMuted">{repair.issue}</p>
+                  </div>
+                  <span className={`px-3 py-1 rounded-full text-sm font-bold ${
+                    repair.status === 'completed' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+                  }`}>
+                    {repair.status || 'Pending'}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center text-sm text-textMuted">
+                  <p><span className="font-semibold">Requested on:</span> {new Date(repair.dateRequested || repair.createdAt || Date.now()).toLocaleDateString()}</p>
+                  <p><span className="font-semibold">Est. Cost:</span> {repair.cost ? `₹${repair.cost}` : 'Pending Quote'}</p>
+                </div>
               </div>
-
-              <button type="submit" className="btn-primary" disabled={submitting}>
-                {submitting ? 'Submitting…' : 'Submit Repair Request'}
-              </button>
-            </form>
+            ))
           )}
         </div>
       </div>
@@ -388,45 +443,38 @@ const AdoptionsTab = ({ orders = [], subscriptions = [], loading, error }) => {
   );
 };
 
-const RepairsTab = ({ repairs = [], loading, error }) => (
-  <div className="card">
-    <h2 className="text-2xl font-bold text-textMain mb-6">Repair Requests</h2>
-
-    {loading && <div className="text-center text-textMuted">Loading repairs…</div>}
-    {error && <div className="text-center text-red-600">{error}</div>}
-
-    <div className="space-y-4">
-      {repairs.length === 0 ? (
-        <div className="text-textMuted">No repair requests found.</div>
-      ) : (
-        repairs.map((repair) => (
-          <div key={repair._id || repair.id} className="p-4 border border-white/20 rounded-lg">
-            <div className="flex justify-between items-start mb-3">
-              <div>
-                <h3 className="text-lg font-semibold">{repair.toy?.name || 'Repair Request'}</h3>
-                <p className="text-sm text-textMuted">{repair.issue}</p>
-              </div>
-              <span className={`px-3 py-1 rounded-full text-sm ${
-                repair.status === 'completed' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
-              }`}>
-                {repair.status}
-              </span>
-            </div>
-            <div className="flex justify-between items-center text-sm">
-              <p><span className="font-semibold">Date:</span> {new Date(repair.dateRequested || repair.createdAt || Date.now()).toLocaleDateString()}</p>
-              <p><span className="font-semibold">Cost:</span> {repair.cost ? `₹${repair.cost}` : 'TBD'}</p>
-            </div>
-          </div>
-        ))
-      )}
-    </div>
-  </div>
-);
-
-const CreditsTab = ({ user, orders = [] }) => {
+const CreditsTab = ({ user }) => {
   const creditBalance = user?.creditBalance ?? 0;
+
+  return (
+    <div className="space-y-6">
+      <div className="card">
+        <h2 className="text-2xl font-bold text-textMain mb-6 flex items-center gap-2">
+          <CreditCard size={28}/> Credit Balance
+        </h2>
+        <div className="text-center mb-8 bg-gradient-to-br from-amber-50 to-orange-50 p-6 rounded-2xl border border-orange-100 shadow-sm shadow-orange-100/50">
+          <p className="text-5xl font-extrabold text-accent mb-2">₹{creditBalance}</p>
+          <p className="text-textMuted font-bold text-lg uppercase tracking-wider">Available Credits</p>
+        </div>
+        <div className="space-y-4">
+          <h3 className="text-lg font-bold text-textMain">Transaction History</h3>
+          <div className="text-textMuted bg-secondary p-6 rounded-xl border border-borderColor text-sm text-center font-medium">
+            Transaction history will appear here once you start using or earning credits from reselling toys!
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const ResellTab = ({ user, orders = [], subscriptions = [] }) => {
   const [returnStatus, setReturnStatus] = useState(null);
+  const [selectedToyId, setSelectedToyId] = useState('');
+  const [condition, setCondition] = useState('good');
   
+  // Users must have a subscription to use this service
+  const hasSubscription = subscriptions.length > 0;
+
   // Get all toys from all orders
   const eligibleToys = orders
     .flatMap(order => order.toys?.map(t => t.toy))
@@ -435,98 +483,103 @@ const CreditsTab = ({ user, orders = [] }) => {
   // Simple unique array of toys
   const uniqueToys = Array.from(new Map(eligibleToys.map(toy => [toy._id, toy])).values());
 
-  const handleReturn = (e) => {
+  const handleReturn = async (e) => {
     e.preventDefault();
+    if (!selectedToyId) {
+      toast.error('Select a toy to resell');
+      return;
+    }
+
     setReturnStatus('processing');
-    setTimeout(() => {
+    try {
+      await axiosClient.post('/api/repairs', {
+        toyId: selectedToyId,
+        requestType: 'return',
+        issue: condition,
+        description: 'User initiated resell/adoption request.'
+      });
       setReturnStatus('success');
-      toast.success('Return request submitted! You will earn credits once approved.');
-    }, 1500);
+      toast.success('Adoption request submitted! The admin will review it shortly.');
+    } catch (err) {
+      console.error(err);
+      toast.error(err.response?.data?.msg || 'Failed to submit request');
+      setReturnStatus(null);
+    }
   };
 
   return (
-    <div className="space-y-6">
-      <div className="card">
-        <h2 className="text-2xl font-bold text-textMain mb-6 flex items-center gap-2">
-          <CreditCard size={28}/> Credit Balance
-        </h2>
-        <div className="text-center mb-8 bg-gradient-to-br from-amber-50 to-orange-50 p-6 rounded-2xl border border-orange-100">
-          <p className="text-4xl font-extrabold text-accent mb-2">₹{creditBalance}</p>
-          <p className="text-textMuted font-medium">Available Credits</p>
+    <div className="card border-green-200 shadow-theme border border-green-100">
+      <div className="flex items-center gap-4 mb-8 border-b border-borderColor pb-6">
+        <div className="w-14 h-14 bg-green-100 text-green-600 rounded-2xl flex items-center justify-center">
+          <RotateCcw size={28} />
         </div>
-        <div className="space-y-4">
-          <h3 className="text-lg font-bold text-textMain">Transaction History</h3>
-          <div className="text-textMuted bg-secondary p-4 rounded-xl border border-borderColor text-sm">
-            Transaction history will appear here once you start using or earning credits.
-          </div>
+        <div>
+          <h2 className="text-3xl font-black text-green-900">Resell & Adopt-Out</h2>
+          <p className="text-green-700 font-medium">Resell your used toys back to us for store credits!</p>
         </div>
       </div>
 
-      <div className="card border-green-200">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center">
-            <RotateCcw size={24} />
-          </div>
+      {!hasSubscription ? (
+        <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-6 rounded-2xl border border-green-200 text-center">
+           <Heart size={48} className="mx-auto text-green-500 mb-4" />
+           <h3 className="text-xl font-bold text-green-900 mb-2">Exclusive Subscriber Perk!</h3>
+           <p className="text-green-800 mb-6 max-w-lg mx-auto">The ability to resell toys for store credits and help them get adopted by other children is exclusively available to members of our Subscription Box program.</p>
+           <a href="/subscribe" className="inline-block bg-green-600 px-6 py-3 rounded-full text-white font-bold hover:bg-green-700 shadow-md">Subscribe Now to Unlock Resell</a>
+        </div>
+      ) : returnStatus === 'success' ? (
+        <div className="bg-green-50 text-green-800 p-8 rounded-2xl border border-green-200 text-center">
+          <Heart className="mx-auto mb-4 text-green-500" size={48} />
+          <h3 className="text-2xl font-bold mb-2">Request Received!</h3>
+          <p className="font-medium text-green-700/80 mb-6 max-w-sm mx-auto">We've received your adoption request. We will arrange a pickup shortly. Once the admin verifies the toy, credits will be added to your account.</p>
+          <button onClick={() => setReturnStatus(null)} className="btn-primary bg-green-600 hover:bg-green-700 border-none">Resell another toy</button>
+        </div>
+      ) : (
+        <form className="space-y-6" onSubmit={handleReturn}>
           <div>
-            <h2 className="text-2xl font-bold text-green-900">Return & Earn</h2>
-            <p className="text-green-700 text-sm">Return your used toys to earn store credits and reduce waste!</p>
-          </div>
-        </div>
-
-        {returnStatus === 'success' ? (
-          <div className="bg-green-50 text-green-800 p-6 rounded-2xl border border-green-200 text-center">
-            <h3 className="text-xl font-bold mb-2">Request Received!</h3>
-            <p>We've received your return request. We will arrange a pickup shortly. Once the toy is verified, credits will be added to your account.</p>
-            <button onClick={() => setReturnStatus(null)} className="mt-4 text-green-700 underline font-medium">Return another toy</button>
-          </div>
-        ) : (
-          <form className="space-y-4" onSubmit={handleReturn}>
-            <div>
-              <label className="block text-sm font-semibold mb-2 text-textMain">Select Toy to Return</label>
-              {uniqueToys.length > 0 ? (
-                <select required className="w-full px-4 py-3 rounded-lg border border-borderColor focus:outline-none focus:ring-2 focus:ring-green-500 bg-primary">
-                  <option value="">-- Choose a toy --</option>
-                  {uniqueToys.map(toy => (
-                    <option key={toy._id} value={toy._id}>{toy.name} (Est. Value: ₹{Math.floor(toy.price * 0.3)})</option>
-                  ))}
-                </select>
-              ) : (
-                <div className="p-4 bg-secondary rounded-lg text-textMuted border border-borderColor">
-                  You don't have any eligible toys to return yet. Purchase a toy first!
-                </div>
-              )}
-            </div>
-
-            {uniqueToys.length > 0 && (
-              <>
-                <div>
-                  <label className="block text-sm font-semibold mb-2 text-textMain">Condition</label>
-                  <select required className="w-full px-4 py-3 rounded-lg border border-borderColor focus:outline-none focus:ring-2 focus:ring-green-500 bg-primary">
-                    <option value="good">Good (Normal wear)</option>
-                    <option value="fair">Fair (Minor damage)</option>
-                    <option value="needs_repair">Needs Repair (Broken parts)</option>
-                  </select>
-                </div>
-
-                <div className="bg-green-50 p-4 rounded-xl border border-green-100 flex items-start gap-3">
-                  <Heart className="text-green-600 shrink-0 mt-0.5" size={20} />
-                  <p className="text-sm text-green-800">
-                    By returning this toy, you ensure it gets a second life. We will repair, repaint, and sanitize it for another child to adopt.
-                  </p>
-                </div>
-
-                <button 
-                  type="submit" 
-                  disabled={returnStatus === 'processing'}
-                  className="w-full bg-green-600 text-white font-bold py-3 rounded-full hover:bg-green-700 transition-colors shadow-lg shadow-green-600/20"
-                >
-                  {returnStatus === 'processing' ? 'Processing...' : 'Submit Return Request'}
-                </button>
-              </>
+            <label className="block text-sm font-bold mb-2 text-textMain">Select Toy to Resell</label>
+            {uniqueToys.length > 0 ? (
+              <select required value={selectedToyId} onChange={(e) => setSelectedToyId(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-borderColor focus:outline-none focus:ring-2 focus:ring-green-500 bg-secondary font-medium">
+                <option value="">-- Choose a toy --</option>
+                {uniqueToys.map(toy => (
+                  <option key={toy._id} value={toy._id}>{toy.name} (Earn up to: ₹{Math.floor(toy.price * 0.3)})</option>
+                ))}
+              </select>
+            ) : (
+              <div className="p-4 bg-secondary rounded-lg text-textMuted border border-borderColor font-medium">
+                You don't have any eligible toys to resell yet. Purchase a toy first!
+              </div>
             )}
-          </form>
-        )}
-      </div>
+          </div>
+
+          {uniqueToys.length > 0 && (
+            <>
+              <div>
+                <label className="block text-sm font-bold mb-2 text-textMain">Current Condition</label>
+                <select required value={condition} onChange={(e) => setCondition(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-borderColor focus:outline-none focus:ring-2 focus:ring-green-500 bg-secondary font-medium">
+                  <option value="good">Good (Normal wear, all pieces intact)</option>
+                  <option value="fair">Fair (Minor damage but playable)</option>
+                  <option value="needs_repair">Needs Repair (Broken parts / Missing pieces)</option>
+                </select>
+              </div>
+
+              <div className="bg-green-50 p-6 rounded-2xl border border-green-100 flex items-start gap-4">
+                <Heart className="text-green-600 shrink-0 mt-1" size={24} />
+                <p className="text-sm font-medium text-green-800 leading-relaxed">
+                  By reselling this toy back to us, you're helping another child adopt it! We will repair, repaint, and sanitize it completely before putting it up for adoption.
+                </p>
+              </div>
+
+              <button 
+                type="submit" 
+                disabled={returnStatus === 'processing'}
+                className="w-full bg-green-600 text-white font-black text-lg py-4 rounded-xl hover:bg-green-700 transition-colors shadow-xl shadow-green-600/20"
+              >
+                {returnStatus === 'processing' ? 'Processing...' : 'Submit Resell Request'}
+              </button>
+            </>
+          )}
+        </form>
+      )}
     </div>
   );
 };

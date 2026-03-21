@@ -31,16 +31,17 @@ router.get('/', auth, async (req, res) => {
   }
 });
 
-// Create repair request
+// Create repair or return request
 router.post('/', auth, async (req, res) => {
-  const { toyId, issue, description } = req.body;
+  const { toyId, issue, description, requestType = 'repair' } = req.body;
 
   try {
     const repair = new Repair({
       user: req.user.id,
       toy: toyId,
       issue,
-      description
+      description,
+      requestType
     });
 
     await repair.save();
@@ -54,7 +55,30 @@ router.post('/', auth, async (req, res) => {
 // Update repair status (admin)
 router.put('/:id', auth, async (req, res) => {
   try {
-    const repair = await Repair.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const { status, creditAmount } = req.body;
+    const repair = await Repair.findById(req.params.id);
+    
+    if (!repair) {
+      return res.status(404).json({ msg: 'Request not found' });
+    }
+
+    // Assign credits if this is a completed return request
+    if (status === 'completed' && repair.requestType === 'return' && repair.status !== 'completed') {
+      if (creditAmount && creditAmount > 0) {
+        const user = await User.findById(repair.user);
+        if (user) {
+          user.creditBalance = (user.creditBalance || 0) + Number(creditAmount);
+          await user.save();
+        }
+      }
+    }
+
+    repair.status = status || repair.status;
+    if (status === 'completed') {
+      repair.dateCompleted = Date.now();
+    }
+    
+    await repair.save();
     res.json(repair);
   } catch (err) {
     console.error(err.message);

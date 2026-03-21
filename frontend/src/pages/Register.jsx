@@ -197,7 +197,7 @@ const Register = () => {
           <button 
             type="submit" 
             disabled={loading}
-            className="w-full bg-accent text-white py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-green-700 transition-colors disabled:opacity-70 shadow-lg shadow-accent/30"
+            className="w-full bg-accent text-on-accent py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:brightness-90 transition-colors disabled:opacity-70 shadow-lg shadow-accent/30"
           >
             {loading ? <RefreshCw size={20} className="animate-spin" /> : 'Sign Up'}
           </button>
@@ -281,7 +281,7 @@ const Register = () => {
                 <p className="text-sm text-textMuted mb-8">
                   We've sent a magic link to <strong className="text-textMain">{formData.identifier}</strong>. Click the link to instantly verify your account.
                 </p>
-                <button onClick={handleVerificationDone} className="w-full bg-accent text-white py-3 rounded-xl font-bold mb-3 hover:bg-green-700 transition-colors">
+                <button onClick={handleVerificationDone} className="w-full bg-accent text-on-accent py-3 rounded-xl font-bold mb-3 hover:brightness-90 transition-colors">
                    I have verified (Demo Skip)
                 </button>
                 <button onClick={() => setVerificationOverlay(false)} className="text-sm font-bold text-textMuted hover:text-textMain transition-colors">
