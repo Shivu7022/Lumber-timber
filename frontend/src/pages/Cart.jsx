@@ -36,7 +36,7 @@ const Cart = () => {
             className="text-center py-20"
           >
             <p className="text-xl text-textMuted mb-8">Your cart is empty</p>
-            <Link to="/marketplace" className="btn-primary">
+            <Link to="/products" className="btn-primary">
               Continue Shopping
             </Link>
           </motion.div>
@@ -125,7 +125,7 @@ const Cart = () => {
                     Proceed to Checkout
                   </button>
                   <Link
-                    to="/marketplace"
+                    to="/products"
                     className="w-full bg-primary/70 backdrop-blur-sm text-primary px-6 py-3 rounded-full font-semibold hover:bg-primary/90 transition-all text-center block"
                   >
                     Continue Shopping
