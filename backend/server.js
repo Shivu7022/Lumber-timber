@@ -74,6 +74,7 @@ app.use('/api/payments', require('./routes/payments'));
 app.use('/api/wishlist', require('./routes/wishlist'));
 app.use('/api/coupons', require('./routes/coupons'));
 app.use('/api/notifications', require('./routes/notifications'));
+app.use('/api/support', require('./routes/support'));
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

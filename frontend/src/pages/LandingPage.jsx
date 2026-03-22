@@ -5,6 +5,7 @@ import { ArrowRight, ChevronLeft, ChevronRight, Leaf, Star, TrendingUp, Zap, Hea
 import ToyCard from '../components/ToyCard';
 import axiosClient from '../api/axiosClient';
 import { Helmet } from 'react-helmet-async';
+import SpinWin from '../components/SpinWin';
 
 const banners = [
   {
@@ -43,6 +44,7 @@ const LandingPage = () => {
   const [ecoPicks, setEcoPicks] = useState([]);
   const [recommendedToys, setRecommendedToys] = useState([]);
   const [bestSellers, setBestSellers] = useState([]);
+  const [isSpinOpen, setIsSpinOpen] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -83,9 +85,17 @@ const LandingPage = () => {
         <meta name="description" content="Discover handcrafted, sustainable, and non-toxic wooden toys from Channapatna for your children." />
         <meta name="keywords" content="toys, wooden toys, eco-friendly, artisan, channapatna" />
       </Helmet>
-      <button onClick={() => alert("Spin & Win Coming Soon!")} className="fixed bottom-6 left-6 w-16 h-16 bg-gradient-to-tr from-yellow-400 to-orange-500 rounded-full shadow-xl flex items-center justify-center text-white z-40 hover:scale-110 transition-transform animate-bounce border-2 border-white cursor-pointer group" title="Spin and Win">
+      
+      <button 
+        onClick={() => setIsSpinOpen(true)} 
+        className="fixed bottom-6 left-6 w-16 h-16 bg-gradient-to-tr from-yellow-400 to-orange-500 rounded-full shadow-xl flex items-center justify-center text-white z-40 hover:scale-110 transition-transform animate-bounce border-2 border-white cursor-pointer group" 
+        title="Spin and Win"
+      >
         <Gift size={28} className="group-hover:rotate-12 transition-transform" />
       </button>
+
+      <SpinWin isOpen={isSpinOpen} onClose={() => setIsSpinOpen(false)} />
+
       {/* Banner Carousel */}
       <div className="relative h-[60vh] min-h-[400px] max-h-[600px] w-full overflow-hidden group">
         <AnimatePresence mode="popLayout">

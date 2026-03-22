@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { PackageSearch, Users, ShoppingBag, RotateCcw, PenTool, LayoutDashboard, Plus, Trash2, Edit } from 'lucide-react';
+import { PackageSearch, Users, ShoppingBag, RotateCcw, PenTool, LayoutDashboard, Plus, Trash2, Edit, MessageSquare, Send as SendIcon } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import axiosClient from '../api/axiosClient';
 import toast from 'react-hot-toast';
@@ -47,6 +47,7 @@ const AdminDashboard = () => {
     { id: 'orders', label: 'Orders & Adoptions', icon: ShoppingBag },
     { id: 'returns', label: 'Returns & Repairs', icon: RotateCcw },
     { id: 'users', label: 'Users', icon: Users },
+    { id: 'support', label: 'Support Chat', icon: MessageSquare },
   ];
 
   if (!isAuthenticated || user?.role !== 'admin') {
@@ -117,6 +118,7 @@ const AdminDashboard = () => {
                   {activeTab === 'orders' && <OrdersTab orders={orders} onRefresh={fetchAdminData} />}
                   {activeTab === 'returns' && <ReturnsTab repairs={repairs} onRefresh={fetchAdminData} />}
                   {activeTab === 'users' && <div className="card text-center py-20 text-textMuted font-bold bg-primary">User Management Coming Soon...</div>}
+                  {activeTab === 'support' && <SupportTab />}
                 </>
               )}
             </motion.div>
@@ -546,6 +548,158 @@ function ReturnsTab({ repairs, onRefresh }) {
             )}
           </tbody>
         </table>
+      </div>
+    </div>
+  );
+}
+
+function SupportTab() {
+  const [activeChats, setActiveChats] = useState([]);
+  const [selectedChat, setSelectedChat] = useState(null);
+  const [messages, setMessages] = useState([]);
+  const [reply, setReply] = useState('');
+  const [loading, setLoading] = useState(false);
+  const scrollRef = React.useRef(null);
+
+  const fetchActiveChats = async () => {
+    try {
+      const res = await axiosClient.get('/api/support/active-chats');
+      setActiveChats(res.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const fetchMessages = async (userId) => {
+    try {
+      const res = await axiosClient.get(`/api/support/messages/${userId}`);
+      setMessages(res.data);
+      // Mark as read
+      await axiosClient.put(`/api/support/mark-read/${userId}`);
+      fetchActiveChats(); // Refresh unread counts
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchActiveChats();
+    const interval = setInterval(fetchActiveChats, 10000);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    let interval;
+    if (selectedChat) {
+      fetchMessages(selectedChat.user._id);
+      interval = setInterval(() => fetchMessages(selectedChat.user._id), 3000);
+    }
+    return () => clearInterval(interval);
+  }, [selectedChat]);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [messages]);
+
+  const handleSend = async (e) => {
+    e.preventDefault();
+    if (!reply.trim() || !selectedChat) return;
+
+    try {
+      await axiosClient.post('/api/support/send', {
+        userId: selectedChat.user._id,
+        message: reply,
+        sender: 'admin'
+      });
+      setReply('');
+      fetchMessages(selectedChat.user._id);
+    } catch (err) {
+      toast.error("Failed to send reply");
+    }
+  };
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 h-[600px]">
+      {/* Chat List */}
+      <div className="md:col-span-1 bg-primary rounded-3xl border border-borderColor overflow-hidden flex flex-col">
+        <div className="p-4 border-b border-borderColor bg-secondary font-bold text-textMain">Active Chats</div>
+        <div className="flex-1 overflow-y-auto">
+          {activeChats.length === 0 ? (
+            <div className="p-8 text-center text-textMuted text-sm italic">No active chats</div>
+          ) : (
+            activeChats.map((chat) => (
+              <button
+                key={chat.user._id}
+                onClick={() => setSelectedChat(chat)}
+                className={`w-full text-left p-4 border-b border-borderColor hover:bg-secondary transition-colors relative ${
+                  selectedChat?.user._id === chat.user._id ? 'bg-secondary' : ''
+                }`}
+              >
+                <div className="flex justify-between items-start mb-1">
+                  <span className="font-bold text-textMain truncate pr-2">{chat.user.name}</span>
+                  <span className="text-[10px] text-textMuted flex-shrink-0">
+                    {chat.timestamp ? new Date(chat.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ''}
+                  </span>
+                </div>
+                <div className="text-xs text-textMuted truncate pr-4 italic">{chat.lastMessage}</div>
+                {chat.unreadCount > 0 && (
+                  <span className="absolute bottom-4 right-4 bg-accent text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
+                    {chat.unreadCount}
+                  </span>
+                )}
+              </button>
+            ))
+          )}
+        </div>
+      </div>
+
+      {/* Chat Window */}
+      <div className="md:col-span-2 bg-primary rounded-3xl border border-borderColor overflow-hidden flex flex-col">
+        {selectedChat ? (
+          <>
+            <div className="p-4 border-b border-borderColor bg-secondary flex justify-between items-center">
+              <div>
+                <span className="font-bold text-textMain">{selectedChat.user.name}</span>
+                <p className="text-[10px] text-textMuted">{selectedChat.user.email}</p>
+              </div>
+            </div>
+            
+            <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-secondary/10">
+              {messages.map((msg, idx) => (
+                <div key={idx} className={`flex ${msg.sender === 'admin' ? 'justify-end' : 'justify-start'}`}>
+                  <div className={`max-w-[80%] rounded-2xl px-4 py-2 text-sm ${
+                    msg.sender === 'admin' 
+                      ? 'bg-accent text-white rounded-tr-sm' 
+                      : 'bg-primary border border-borderColor text-textMain rounded-tl-sm shadow-sm'
+                  }`}>
+                    {msg.message}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <form onSubmit={handleSend} className="p-4 border-t border-borderColor bg-primary flex gap-2">
+              <input
+                type="text"
+                value={reply}
+                onChange={(e) => setReply(e.target.value)}
+                placeholder="Type your reply..."
+                className="flex-1 bg-secondary border border-borderColor rounded-xl px-4 py-2 text-sm outline-none focus:border-accent"
+              />
+              <button type="submit" className="bg-accent text-white p-2 rounded-xl hover:bg-accent/90 transition-all shadow-md">
+                <SendIcon size={20} />
+              </button>
+            </form>
+          </>
+        ) : (
+          <div className="flex-1 flex flex-col items-center justify-center text-textMuted p-8 text-center">
+            <MessageSquare size={48} className="opacity-20 mb-4" />
+            <p className="font-bold">Select a chat to start responding</p>
+            <p className="text-sm">Real-time support enabled</p>
+          </div>
+        )}
       </div>
     </div>
   );
