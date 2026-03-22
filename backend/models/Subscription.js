@@ -9,7 +9,7 @@ const SubscriptionSchema = new mongoose.Schema({
   plan: {
     type: String,
     required: true,
-    enum: ['basic', 'standard', 'premium']
+    enum: ['basic', 'standard', 'premium', 'Explorer Plan', 'Artisan Plan']
   },
   duration: {
     type: Number, // in months

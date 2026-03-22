@@ -11,6 +11,7 @@ const Dashboard = () => {
   const [orders, setOrders] = useState([]);
   const [repairs, setRepairs] = useState([]);
   const [subscriptions, setSubscriptions] = useState([]);
+  const [allToysStore, setAllToysStore] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -31,15 +32,17 @@ const Dashboard = () => {
       setLoading(true);
       setError(null);
       try {
-        const [ordersRes, repairsRes, subscriptionsRes] = await Promise.all([
+        const [ordersRes, repairsRes, subscriptionsRes, toysRes] = await Promise.all([
           axiosClient.get('/api/orders'),
           axiosClient.get('/api/repairs'),
-          axiosClient.get('/api/subscriptions')
+          axiosClient.get('/api/subscriptions'),
+          axiosClient.get('/api/toys?format=array')
         ]);
 
         setOrders(ordersRes.data);
         setRepairs(repairsRes.data);
         setSubscriptions(subscriptionsRes.data);
+        setAllToysStore(Array.isArray(toysRes.data) ? toysRes.data : (toysRes.data?.toys || []));
       } catch (err) {
         console.error(err);
         setError('Failed to load dashboard data.');
@@ -61,11 +64,11 @@ const Dashboard = () => {
       case 'subscriptions':
         return <SubscriptionsTab subscriptions={subscriptions} loading={loading} error={error} />;
       case 'repairs':
-        return <RepairsTab repairs={repairs} orders={orders} subscriptions={subscriptions} loading={loading} error={error} onRefresh={() => {}} />;
+        return <RepairsTab repairs={repairs} allToysStore={allToysStore} subscriptions={subscriptions} loading={loading} error={error} />;
       case 'resell':
-        return <ResellTab user={user} orders={orders} subscriptions={subscriptions} />;
+        return <ResellTab user={user} allToysStore={allToysStore} subscriptions={subscriptions} repairs={repairs} />;
       case 'credits':
-        return <CreditsTab user={user} />;
+        return <CreditsTab user={user} repairs={repairs} orders={orders} />;
       case 'settings':
         return <SettingsTab user={user} />;
       default:
@@ -290,7 +293,7 @@ const SubscriptionsTab = ({ subscriptions = [], loading, error }) => {
               </div>
               <div className="grid md:grid-cols-2 gap-4 text-sm">
                 <p><span className="font-semibold">Started:</span> {new Date(sub.createdAt || sub.date || Date.now()).toLocaleDateString()}</p>
-                <p><span className="font-semibold">Duration:</span> {sub.duration || 'Monthly'}</p>
+                <p><span className="font-semibold">Duration:</span> {sub.duration ? `${sub.duration} months` : 'Monthly'}</p>
               </div>
             </div>
           ))
@@ -300,7 +303,7 @@ const SubscriptionsTab = ({ subscriptions = [], loading, error }) => {
   );
 };
 
-const RepairsTab = ({ repairs = [], orders = [], subscriptions = [], loading, error }) => {
+const RepairsTab = ({ repairs = [], allToysStore = [], subscriptions = [], loading, error }) => {
   const [selectedToyId, setSelectedToyId] = useState('');
   const [issue, setIssue] = useState('Broken part');
   const [description, setDescription] = useState('');
@@ -309,8 +312,7 @@ const RepairsTab = ({ repairs = [], orders = [], subscriptions = [], loading, er
   // Users must have a subscription to use this service
   const hasSubscription = subscriptions.length > 0;
   
-  const allToys = orders.flatMap((order) => order.toys?.map((item) => item.toy)).filter(Boolean);
-  const toyOptions = Array.from(new Map(allToys.map((toy) => [toy._id, toy])).values());
+  const toyOptions = allToysStore;
 
   useEffect(() => {
     if (toyOptions.length && !selectedToyId) {
@@ -355,7 +357,7 @@ const RepairsTab = ({ repairs = [], orders = [], subscriptions = [], loading, er
              <a href="/subscribe" className="inline-block bg-accent px-6 py-3 rounded-full text-white font-bold hover:bg-accent/90 shadow-md">Join Now to Unlock Repairs</a>
           </div>
         ) : toyOptions.length === 0 ? (
-          <div className="text-textMuted bg-secondary p-4 rounded-lg border border-borderColor">You need to place an order first before you can request a repair for a toy.</div>
+          <div className="text-textMuted bg-secondary p-4 rounded-lg border border-borderColor">Loading toys...</div>
         ) : (
           <form className="space-y-4" onSubmit={handleRequestRepair}>
             <div className="grid md:grid-cols-2 gap-4">
@@ -443,8 +445,31 @@ const RepairsTab = ({ repairs = [], orders = [], subscriptions = [], loading, er
   );
 };
 
-const CreditsTab = ({ user }) => {
+const CreditsTab = ({ user, repairs = [], orders = [] }) => {
   const creditBalance = user?.creditBalance ?? 0;
+
+  // Build transaction history from completed return requests (earned credits)
+  const earnedTransactions = repairs
+    .filter(r => r.requestType === 'return' && r.status === 'completed')
+    .map(r => ({
+      type: 'credit',
+      label: `Resold: ${r.toy?.name || 'Unknown Toy'}`,
+      amount: r.creditAmount || Math.floor((r.toy?.price || 0) * 0.3),
+      date: r.dateCompleted || r.dateRequested
+    }));
+
+  // Build debit transactions from orders
+  const spentTransactions = orders
+    .filter(o => o.creditsUsed && o.creditsUsed > 0)
+    .map(o => ({
+      type: 'debit',
+      label: `Order #${o._id?.substring(0, 8) || 'Order'}`,
+      amount: o.creditsUsed,
+      date: o.createdAt || o.date
+    }));
+
+  const allTransactions = [...earnedTransactions, ...spentTransactions]
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
 
   return (
     <div className="space-y-6">
@@ -458,16 +483,32 @@ const CreditsTab = ({ user }) => {
         </div>
         <div className="space-y-4">
           <h3 className="text-lg font-bold text-textMain">Transaction History</h3>
-          <div className="text-textMuted bg-secondary p-6 rounded-xl border border-borderColor text-sm text-center font-medium">
-            Transaction history will appear here once you start using or earning credits from reselling toys!
-          </div>
+          {allTransactions.length === 0 ? (
+            <div className="text-textMuted bg-secondary p-6 rounded-xl border border-borderColor text-sm text-center font-medium">
+              No transactions yet. Resell a toy to earn your first credits!
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {allTransactions.map((tx, i) => (
+                <div key={i} className="flex justify-between items-center p-4 rounded-xl border border-borderColor bg-secondary">
+                  <div>
+                    <p className="font-semibold text-textMain text-sm">{tx.label}</p>
+                    <p className="text-xs text-textMuted">{new Date(tx.date).toLocaleDateString()}</p>
+                  </div>
+                  <span className={`font-black text-lg ${tx.type === 'credit' ? 'text-green-500' : 'text-red-400'}`}>
+                    {tx.type === 'credit' ? '+' : '-'}₹{tx.amount}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>
   );
 };
 
-const ResellTab = ({ user, orders = [], subscriptions = [] }) => {
+const ResellTab = ({ user, allToysStore = [], subscriptions = [], repairs = [] }) => {
   const [returnStatus, setReturnStatus] = useState(null);
   const [selectedToyId, setSelectedToyId] = useState('');
   const [condition, setCondition] = useState('good');
@@ -475,13 +516,11 @@ const ResellTab = ({ user, orders = [], subscriptions = [] }) => {
   // Users must have a subscription to use this service
   const hasSubscription = subscriptions.length > 0;
 
-  // Get all toys from all orders
-  const eligibleToys = orders
-    .flatMap(order => order.toys?.map(t => t.toy))
-    .filter(Boolean);
-    
-  // Simple unique array of toys
-  const uniqueToys = Array.from(new Map(eligibleToys.map(toy => [toy._id, toy])).values());
+  // Let users pick from any toy in the store
+  const uniqueToys = allToysStore;
+
+  // Resell history = return requests
+  const resellHistory = repairs.filter(r => r.requestType === 'return');
 
   const handleReturn = async (e) => {
     e.preventDefault();
@@ -508,78 +547,115 @@ const ResellTab = ({ user, orders = [], subscriptions = [] }) => {
   };
 
   return (
-    <div className="card border-green-200 shadow-theme border border-green-100">
-      <div className="flex items-center gap-4 mb-8 border-b border-borderColor pb-6">
-        <div className="w-14 h-14 bg-green-100 text-green-600 rounded-2xl flex items-center justify-center">
-          <RotateCcw size={28} />
+    <div className="space-y-6">
+      <div className="card border-green-200 shadow-theme border border-green-100">
+        <div className="flex items-center gap-4 mb-8 border-b border-borderColor pb-6">
+          <div className="w-14 h-14 bg-green-100 text-green-600 rounded-2xl flex items-center justify-center">
+            <RotateCcw size={28} />
+          </div>
+          <div>
+            <h2 className="text-3xl font-black text-green-900">Resell & Adopt-Out</h2>
+            <p className="text-green-700 font-medium">Resell your used toys back to us for store credits!</p>
+          </div>
         </div>
-        <div>
-          <h2 className="text-3xl font-black text-green-900">Resell & Adopt-Out</h2>
-          <p className="text-green-700 font-medium">Resell your used toys back to us for store credits!</p>
-        </div>
+
+        {!hasSubscription ? (
+          <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-6 rounded-2xl border border-green-200 text-center">
+             <Heart size={48} className="mx-auto text-green-500 mb-4" />
+             <h3 className="text-xl font-bold text-green-900 mb-2">Exclusive Subscriber Perk!</h3>
+             <p className="text-green-800 mb-6 max-w-lg mx-auto">The ability to resell toys for store credits and help them get adopted by other children is exclusively available to members of our Subscription Box program.</p>
+             <a href="/subscribe" className="inline-block bg-green-600 px-6 py-3 rounded-full text-white font-bold hover:bg-green-700 shadow-md">Subscribe Now to Unlock Resell</a>
+          </div>
+        ) : returnStatus === 'success' ? (
+          <div className="bg-green-50 text-green-800 p-8 rounded-2xl border border-green-200 text-center">
+            <Heart className="mx-auto mb-4 text-green-500" size={48} />
+            <h3 className="text-2xl font-bold mb-2">Request Received!</h3>
+            <p className="font-medium text-green-700/80 mb-6 max-w-sm mx-auto">We've received your adoption request. We will arrange a pickup shortly. Once the admin verifies the toy, credits will be added to your account.</p>
+            <button onClick={() => setReturnStatus(null)} className="btn-primary bg-green-600 hover:bg-green-700 border-none">Resell another toy</button>
+          </div>
+        ) : (
+          <form className="space-y-6" onSubmit={handleReturn}>
+            <div>
+              <label className="block text-sm font-bold mb-2 text-textMain">Select Toy to Resell</label>
+              {uniqueToys.length > 0 ? (
+                <select required value={selectedToyId} onChange={(e) => setSelectedToyId(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-borderColor focus:outline-none focus:ring-2 focus:ring-green-500 bg-secondary font-medium">
+                  <option value="">-- Choose a toy --</option>
+                  {uniqueToys.map(toy => (
+                    <option key={toy._id} value={toy._id}>{toy.name} (Earn up to: ₹{Math.floor(toy.price * 0.3)})</option>
+                  ))}
+                </select>
+              ) : (
+                <div className="p-4 bg-secondary rounded-lg text-textMuted border border-borderColor font-medium">
+                  Loading toys...
+                </div>
+              )}
+            </div>
+
+            {uniqueToys.length > 0 && (
+              <>
+                <div>
+                  <label className="block text-sm font-bold mb-2 text-textMain">Current Condition</label>
+                  <select required value={condition} onChange={(e) => setCondition(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-borderColor focus:outline-none focus:ring-2 focus:ring-green-500 bg-secondary font-medium">
+                    <option value="good">Good (Normal wear, all pieces intact)</option>
+                    <option value="fair">Fair (Minor damage but playable)</option>
+                    <option value="needs_repair">Needs Repair (Broken parts / Missing pieces)</option>
+                  </select>
+                </div>
+
+                <div className="bg-green-50 p-6 rounded-2xl border border-green-100 flex items-start gap-4">
+                  <Heart className="text-green-600 shrink-0 mt-1" size={24} />
+                  <p className="text-sm font-medium text-green-800 leading-relaxed">
+                    By reselling this toy back to us, you're helping another child adopt it! We will repair, repaint, and sanitize it completely before putting it up for adoption.
+                  </p>
+                </div>
+
+                <button 
+                  type="submit" 
+                  disabled={returnStatus === 'processing'}
+                  className="w-full bg-green-600 text-white font-black text-lg py-4 rounded-xl hover:bg-green-700 transition-colors shadow-xl shadow-green-600/20"
+                >
+                  {returnStatus === 'processing' ? 'Processing...' : 'Submit Resell Request'}
+                </button>
+              </>
+            )}
+          </form>
+        )}
       </div>
 
-      {!hasSubscription ? (
-        <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-6 rounded-2xl border border-green-200 text-center">
-           <Heart size={48} className="mx-auto text-green-500 mb-4" />
-           <h3 className="text-xl font-bold text-green-900 mb-2">Exclusive Subscriber Perk!</h3>
-           <p className="text-green-800 mb-6 max-w-lg mx-auto">The ability to resell toys for store credits and help them get adopted by other children is exclusively available to members of our Subscription Box program.</p>
-           <a href="/subscribe" className="inline-block bg-green-600 px-6 py-3 rounded-full text-white font-bold hover:bg-green-700 shadow-md">Subscribe Now to Unlock Resell</a>
-        </div>
-      ) : returnStatus === 'success' ? (
-        <div className="bg-green-50 text-green-800 p-8 rounded-2xl border border-green-200 text-center">
-          <Heart className="mx-auto mb-4 text-green-500" size={48} />
-          <h3 className="text-2xl font-bold mb-2">Request Received!</h3>
-          <p className="font-medium text-green-700/80 mb-6 max-w-sm mx-auto">We've received your adoption request. We will arrange a pickup shortly. Once the admin verifies the toy, credits will be added to your account.</p>
-          <button onClick={() => setReturnStatus(null)} className="btn-primary bg-green-600 hover:bg-green-700 border-none">Resell another toy</button>
-        </div>
-      ) : (
-        <form className="space-y-6" onSubmit={handleReturn}>
-          <div>
-            <label className="block text-sm font-bold mb-2 text-textMain">Select Toy to Resell</label>
-            {uniqueToys.length > 0 ? (
-              <select required value={selectedToyId} onChange={(e) => setSelectedToyId(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-borderColor focus:outline-none focus:ring-2 focus:ring-green-500 bg-secondary font-medium">
-                <option value="">-- Choose a toy --</option>
-                {uniqueToys.map(toy => (
-                  <option key={toy._id} value={toy._id}>{toy.name} (Earn up to: ₹{Math.floor(toy.price * 0.3)})</option>
-                ))}
-              </select>
-            ) : (
-              <div className="p-4 bg-secondary rounded-lg text-textMuted border border-borderColor font-medium">
-                You don't have any eligible toys to resell yet. Purchase a toy first!
-              </div>
-            )}
+      {/* Resell History */}
+      <div className="card">
+        <h2 className="text-2xl font-bold text-textMain mb-6 flex items-center gap-2">
+          <RotateCcw size={24} /> My Resell History
+        </h2>
+        {resellHistory.length === 0 ? (
+          <div className="text-textMuted text-sm text-center p-6 bg-secondary rounded-xl border border-borderColor font-medium">
+            No resell requests yet. Submit your first one above!
           </div>
-
-          {uniqueToys.length > 0 && (
-            <>
-              <div>
-                <label className="block text-sm font-bold mb-2 text-textMain">Current Condition</label>
-                <select required value={condition} onChange={(e) => setCondition(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-borderColor focus:outline-none focus:ring-2 focus:ring-green-500 bg-secondary font-medium">
-                  <option value="good">Good (Normal wear, all pieces intact)</option>
-                  <option value="fair">Fair (Minor damage but playable)</option>
-                  <option value="needs_repair">Needs Repair (Broken parts / Missing pieces)</option>
-                </select>
+        ) : (
+          <div className="space-y-4">
+            {resellHistory.map(r => (
+              <div key={r._id} className="p-4 border border-borderColor rounded-xl bg-secondary/50">
+                <div className="flex flex-wrap justify-between items-start gap-4 mb-2">
+                  <div>
+                    <h3 className="font-bold text-textMain">{r.toy?.name || 'Resell Request'}</h3>
+                    <p className="text-xs text-textMuted">Condition: {r.issue}</p>
+                  </div>
+                  <span className={`px-3 py-1 rounded-full text-xs font-bold ${
+                    r.status === 'completed' ? 'bg-green-100 text-green-800' :
+                    r.status === 'rejected' ? 'bg-red-100 text-red-700' : 'bg-yellow-100 text-yellow-800'
+                  }`}>
+                    {r.status === 'completed' ? '✅ Credits Awarded' : r.status === 'rejected' ? '❌ Rejected' : '⏳ Pending Review'}
+                  </span>
+                </div>
+                <div className="flex justify-between text-xs text-textMuted">
+                  <span>Submitted: {new Date(r.dateRequested || r.createdAt).toLocaleDateString()}</span>
+                  {r.status === 'completed' && <span className="text-green-600 font-bold">+₹{r.creditAmount || 'Credits Added'}</span>}
+                </div>
               </div>
-
-              <div className="bg-green-50 p-6 rounded-2xl border border-green-100 flex items-start gap-4">
-                <Heart className="text-green-600 shrink-0 mt-1" size={24} />
-                <p className="text-sm font-medium text-green-800 leading-relaxed">
-                  By reselling this toy back to us, you're helping another child adopt it! We will repair, repaint, and sanitize it completely before putting it up for adoption.
-                </p>
-              </div>
-
-              <button 
-                type="submit" 
-                disabled={returnStatus === 'processing'}
-                className="w-full bg-green-600 text-white font-black text-lg py-4 rounded-xl hover:bg-green-700 transition-colors shadow-xl shadow-green-600/20"
-              >
-                {returnStatus === 'processing' ? 'Processing...' : 'Submit Resell Request'}
-              </button>
-            </>
-          )}
-        </form>
-      )}
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

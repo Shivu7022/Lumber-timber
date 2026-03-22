@@ -2,6 +2,7 @@ const express = require('express');
 const Order = require('../models/Order');
 const User = require('../models/User');
 const Return = require('../models/Return');
+const Notification = require('../models/Notification');
 const auth = require('../middleware/auth');
 const { sendEmail } = require('../utils/mailer');
 
@@ -43,6 +44,17 @@ router.put('/:id/status', auth, async (req, res) => {
        );
     }
 
+    // Create in-app notification
+    try {
+      await Notification.create({
+        user: order.user._id || order.user,
+        title: 'Order Status Updated',
+        message: `Your order is now: ${status}`,
+        type: 'order',
+        link: '/dashboard'
+      });
+    } catch (_) {}
+
     res.json(order);
   } catch (err) {
     console.error(err.message);
@@ -74,17 +86,30 @@ router.get('/my-orders', auth, async (req, res) => {
 
 // Create order
 router.post('/', auth, async (req, res) => {
-  const { toys, totalAmount, paymentMethod } = req.body;
+  const { toys, totalAmount, paymentMethod, transactionId } = req.body;
 
   try {
     const order = new Order({
       user: req.user.id,
       toys,
       totalAmount,
-      paymentMethod
+      paymentMethod,
+      transactionId: transactionId || ''
     });
 
     await order.save();
+
+    // Create in-app notification for order placed
+    try {
+      await Notification.create({
+        user: req.user.id,
+        title: '🛒 Order Placed Successfully!',
+        message: `Your order of ₹${totalAmount} has been placed. We'll update you when it ships!`,
+        type: 'order',
+        link: '/dashboard'
+      });
+    } catch (_) {}
+
     res.json(order);
   } catch (err) {
     console.error(err.message);
@@ -94,7 +119,7 @@ router.post('/', auth, async (req, res) => {
 
 // ALIAS: Create order (Specific Prompt Requirement)
 router.post('/create', auth, async (req, res) => {
-  const { toys, totalAmount, paymentMethod, orderType } = req.body;
+  const { toys, totalAmount, paymentMethod, orderType, transactionId } = req.body;
 
   try {
     const order = new Order({
@@ -102,7 +127,8 @@ router.post('/create', auth, async (req, res) => {
       toys,
       totalAmount,
       paymentMethod,
-      orderType: orderType || 'BUY'
+      orderType: orderType || 'BUY',
+      transactionId: transactionId || ''
     });
 
     await order.save();

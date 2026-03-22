@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingCart, LogOut, LogIn, Search, ChevronDown, Menu, X, Moon, Sun, TreePine, Heart, Bell, Shield } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useCart } from '../contexts/CartContext';
+import axiosClient from '../api/axiosClient';
 import { useTheme } from '../contexts/ThemeContext';
 
 const Navbar = () => {
@@ -16,8 +17,68 @@ const Navbar = () => {
   const [isThemeOpen, setIsThemeOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isNotifOpen, setIsNotifOpen] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+  const [unreadCount, setUnreadCount] = useState(0);
+  const notifRef = useRef(null);
   const [isQuickLinksOpen, setIsQuickLinksOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
+
+  useEffect(() => {
+    if (!user) return;
+    const fetchNotifs = async () => {
+      try {
+        const res = await axiosClient.get('/api/notifications');
+        setNotifications(res.data);
+        setUnreadCount(res.data.filter(n => !n.isRead).length);
+      } catch (_) {}
+    };
+    fetchNotifs();
+    const interval = setInterval(fetchNotifs, 30000); // poll every 30s
+    return () => clearInterval(interval);
+  }, [user]);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (notifRef.current && !notifRef.current.contains(e.target)) {
+        setIsNotifOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const openNotifications = () => {
+    setIsNotifOpen(prev => !prev);
+  };
+
+  const markAllRead = async () => {
+    try {
+      await axiosClient.put('/api/notifications/mark-all-read');
+      setNotifications(prev => prev.map(n => ({ ...n, isRead: true })));
+      setUnreadCount(0);
+    } catch (_) {}
+  };
+
+  const deleteNotif = async (id) => {
+    try {
+      await axiosClient.delete(`/api/notifications/${id}`);
+      setNotifications(prev => prev.filter(n => n._id !== id));
+      setUnreadCount(prev => {
+        const deleted = notifications.find(n => n._id === id);
+        return deleted && !deleted.isRead ? prev - 1 : prev;
+      });
+    } catch (_) {}
+  };
+
+  const markRead = async (notif) => {
+    if (!notif.isRead) {
+      try {
+        await axiosClient.put(`/api/notifications/${notif._id}/read`);
+        setNotifications(prev => prev.map(n => n._id === notif._id ? { ...n, isRead: true } : n));
+        setUnreadCount(prev => Math.max(0, prev - 1));
+      } catch (_) {}
+    }
+  };
 
   const categories = ['Baby Toys', 'Educational Toys', 'Decorative Toys', 'Puzzle Toys'];
 
@@ -61,6 +122,77 @@ const Navbar = () => {
                <Search className="text-white" size={20} />
             </button>
           </form>
+
+          {/* Notification Bell */}
+          {user && (
+            <div className="relative" ref={notifRef}>
+              <button
+                onClick={openNotifications}
+                className="relative text-textMain hover:text-accent p-2 rounded-lg hover:bg-secondary transition-colors"
+                title="Notifications"
+              >
+                <Bell size={24} />
+                {unreadCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-black rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-1">
+                    {unreadCount > 9 ? '9+' : unreadCount}
+                  </span>
+                )}
+              </button>
+
+              <AnimatePresence>
+                {isNotifOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -8, scale: 0.96 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -8, scale: 0.96 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute right-0 top-12 w-80 bg-primary border border-borderColor rounded-2xl shadow-2xl z-[200] overflow-hidden"
+                  >
+                    <div className="flex justify-between items-center px-4 py-3 border-b border-borderColor">
+                      <span className="font-bold text-textMain text-sm">Notifications</span>
+                      {unreadCount > 0 && (
+                        <button onClick={markAllRead} className="text-xs text-accent font-semibold hover:underline">Mark all read</button>
+                      )}
+                    </div>
+                    <div className="max-h-80 overflow-y-auto divide-y divide-borderColor">
+                      {notifications.length === 0 ? (
+                        <div className="py-10 text-center text-textMuted text-sm">
+                          <Bell size={28} className="mx-auto mb-2 opacity-30" />
+                          No notifications yet
+                        </div>
+                      ) : (
+                        notifications.map(n => (
+                          <div
+                            key={n._id}
+                            onClick={() => markRead(n)}
+                            className={`flex items-start gap-3 px-4 py-3 cursor-pointer hover:bg-secondary transition-colors ${
+                              !n.isRead ? 'bg-accent/5' : ''
+                            }`}
+                          >
+                            <div className={`w-2 h-2 rounded-full mt-2 shrink-0 ${
+                              !n.isRead ? 'bg-accent' : 'bg-transparent'
+                            }`} />
+                            <div className="flex-1 min-w-0">
+                              <p className="text-sm font-semibold text-textMain truncate">{n.title}</p>
+                              <p className="text-xs text-textMuted mt-0.5 line-clamp-2">{n.message}</p>
+                              <p className="text-[10px] text-textMuted mt-1">{new Date(n.createdAt).toLocaleString()}</p>
+                            </div>
+                            <button
+                              onClick={(e) => { e.stopPropagation(); deleteNotif(n._id); }}
+                              className="text-textMuted hover:text-red-500 transition-colors shrink-0 mt-1"
+                              title="Delete"
+                            >
+                              <X size={14} />
+                            </button>
+                          </div>
+                        ))
+                      )}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          )}
 
           {/* Universal Hamburger Menu Button */}
           <div className="flex items-center gap-4 ml-auto">
@@ -241,11 +373,10 @@ const Navbar = () => {
                         <Heart size={22} className="text-textMuted group-hover:text-accent"/> Saved Wishlist
                       </Link>
                       <div className="flex justify-between items-center">
-                        <div className="flex items-center gap-3 font-semibold text-textMain"><Bell size={22} className="text-textMuted"/> Notifications</div>
-                        <span className="flex h-3 w-3 relative">
-                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                          <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
-                        </span>
+                        <div className="flex items-center gap-3 font-semibold text-textMain">
+                          <Bell size={22} className="text-textMuted"/> Notifications
+                          {unreadCount > 0 && <span className="bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">{unreadCount}</span>}
+                        </div>
                       </div>
                     </>
                   )}

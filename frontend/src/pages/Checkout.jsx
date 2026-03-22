@@ -1,22 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { CreditCard, Smartphone, CheckCircle, ShieldCheck, ArrowLeft, MapPin, Truck, Calendar } from 'lucide-react';
+import { CreditCard, Smartphone, CheckCircle, ShieldCheck, ArrowLeft, MapPin, Truck, Calendar, Clock } from 'lucide-react';
 import { useCart } from '../contexts/CartContext';
 import { useAuth } from '../contexts/AuthContext';
 import axiosClient from '../api/axiosClient';
 import { toast } from 'react-hot-toast';
-
-// Helper to load Razorpay script
-const loadRazorpayScript = () => {
-  return new Promise((resolve) => {
-    const script = document.createElement("script");
-    script.src = "https://checkout.razorpay.com/v1/checkout.js";
-    script.onload = () => resolve(true);
-    script.onerror = () => resolve(false);
-    document.body.appendChild(script);
-  });
-};
 
 const Checkout = () => {
   const navigate = useNavigate();
@@ -26,7 +15,9 @@ const Checkout = () => {
   const [paymentMethod, setPaymentMethod] = useState('upi');
   const [isProcessing, setIsProcessing] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [phonePeMockStatus, setPhonePeMockStatus] = useState(false);
+  const [showUpiVerification, setShowUpiVerification] = useState(false);
+  const [utrNumber, setUtrNumber] = useState('');
+  const [timeLeft, setTimeLeft] = useState(300); // 5 minutes timer
   const [couponCode, setCouponCode] = useState('');
   const [discountPercentage, setDiscountPercentage] = useState(0);
   const [couponMessage, setCouponMessage] = useState({ text: '', type: '' });
@@ -46,124 +37,49 @@ const Checkout = () => {
   };
 
   useEffect(() => {
+    let timer;
+    if (showUpiVerification && timeLeft > 0) {
+      timer = setInterval(() => {
+        setTimeLeft(prev => prev - 1);
+      }, 1000);
+    } else if (timeLeft === 0) {
+      setShowUpiVerification(false);
+      toast.error("Payment session expired. Please try again.");
+      setTimeLeft(300);
+    }
+    return () => clearInterval(timer);
+  }, [showUpiVerification, timeLeft]);
+
+  useEffect(() => {
     if (cartItems.length === 0 && !isSuccess) {
       navigate('/cart');
     }
   }, [cartItems, navigate, isSuccess]);
 
-  const handleRazorpay = async () => {
-    try {
-      // 1. Create order on our backend
-      const payload = {
-        totalAmount: finalTotal,
-        toys: cartItems.map((item) => ({ toy: item._id, quantity: item.quantity })),
-      };
-      
-      const { data: orderData } = await axiosClient.post('/api/payments/razorpay/order', payload);
-
-      if (orderData.isMock) {
-        // Fallback if Razorpay keys are not configured in backend
-        await axiosClient.post('/api/payments/razorpay/verify', {
-           ...orderData,
-           isMock: true,
-           razorpayPaymentId: `mock_pay_${Date.now()}`,
-           totalAmount: finalTotal,
-           toys: payload.toys
-        });
-        setIsSuccess(true);
-        clearCart();
-        return;
-      }
-
-      // 2. Load Razorpay SDK
-      const res = await loadRazorpayScript();
-      if (!res) {
-        toast.error('Razorpay SDK failed to load. Are you online?');
-        setIsProcessing(false);
-        return;
-      }
-
-      // 3. Configure Razorpay modal options
-      const options = {
-        key: import.meta.env.VITE_RAZORPAY_KEY_ID || 'your_razorpay_key_id', // Add to your frontend .env
-        amount: orderData.amount,
-        currency: orderData.currency,
-        name: "Lumber Timber",
-        description: "Eco-friendly Wooden Toys",
-        image: "https://picsum.photos/100/100", // Your logo here
-        order_id: orderData.id,
-        handler: async function (response) {
-          try {
-            // 4. Verify payment on backend
-            await axiosClient.post('/api/payments/razorpay/verify', {
-              razorpayOrderId: response.razorpay_order_id,
-              razorpayPaymentId: response.razorpay_payment_id,
-              razorpaySignature: response.razorpay_signature,
-              totalAmount: finalTotal,
-              toys: payload.toys,
-              isMock: false
-            });
-            setIsSuccess(true);
-            clearCart();
-          } catch (err) {
-            toast.error("Payment verification failed");
-          }
-        },
-        prefill: {
-          name: user?.name || "Customer",
-          email: user?.email || "customer@example.com",
-          contact: "9999999999"
-        },
-        theme: {
-          color: "#059669" // Primary color
-        }
-      };
-
-      const paymentObject = new window.Razorpay(options);
-      paymentObject.open();
-
-      // Handle payment modal close
-      paymentObject.on('payment.failed', function (response) {
-        toast.error("Payment Failed: " + response.error.description);
-        setIsProcessing(false);
-      });
-
-    } catch (err) {
-      console.error(err);
-      toast.error('Something went wrong initiating Razorpay');
-      setIsProcessing(false);
+  const submitUpiPayment = async (e) => {
+    e.preventDefault();
+    if (!utrNumber || utrNumber.length < 6) {
+      toast.error("Please enter a valid 12-digit UPI Transaction ID");
+      return;
     }
-  };
 
-  const handlePhonePe = async () => {
+    setIsProcessing(true);
     try {
       const payload = {
         totalAmount: finalTotal,
         toys: cartItems.map((item) => ({ toy: item._id, quantity: item.quantity })),
+        paymentMethod: 'UPI',
+        transactionId: utrNumber
       };
       
-      // 1. Init PhonePe Transaction
-      const { data } = await axiosClient.post('/api/payments/phonepe/order', payload);
+      await axiosClient.post('/api/orders/create', payload);
       
-      // Mocking the redirect experience since we don't have real PhonePe setup
-      setPhonePeMockStatus(true);
-      
-      setTimeout(async () => {
-         // 2. Verify PhonePe
-         await axiosClient.post('/api/payments/phonepe/verify', {
-            transactionId: data.transactionId,
-            totalAmount: finalTotal,
-            toys: payload.toys
-         });
-         
-         setPhonePeMockStatus(false);
-         setIsSuccess(true);
-         clearCart();
-      }, 3000);
-      
+      setShowUpiVerification(false);
+      setIsSuccess(true);
+      clearCart();
     } catch (err) {
       console.error(err);
-      toast.error('Something went wrong initiating PhonePe');
+      toast.error('Payment verification failed.');
       setIsProcessing(false);
     }
   };
@@ -171,23 +87,27 @@ const Checkout = () => {
   const handlePayment = async (e) => {
     e.preventDefault();
     if (isProcessing) return;
-    setIsProcessing(true);
     
     if (paymentMethod === 'upi') {
-      await handlePhonePe();
+      setShowUpiVerification(true);
+      setTimeLeft(300); // 5 minutes
     } else if (paymentMethod === 'cod') {
-      // Mock COD
-      setTimeout(() => {
-        setIsProcessing(false);
+      setIsProcessing(true);
+      try {
+        const payload = {
+          totalAmount: finalTotal,
+          toys: cartItems.map((item) => ({ toy: item._id, quantity: item.quantity })),
+          paymentMethod: 'COD'
+        };
+        await axiosClient.post('/api/orders/create', payload);
         setIsSuccess(true);
         clearCart();
-      }, 1500);
-    } else {
-      await handleRazorpay();
+      } catch (err) {
+        toast.error('Order failed');
+      } finally {
+        setIsProcessing(false);
+      }
     }
-    
-    // We only reset isProcessing if modal closes or fails. 
-    // If successful, on success effects clear state and navigate.
   };
 
   useEffect(() => {
@@ -199,17 +119,94 @@ const Checkout = () => {
     }
   }, [isSuccess, navigate]);
 
-  if (phonePeMockStatus) {
+  const formatTime = (seconds) => {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return `${m}:${s < 10 ? '0' : ''}${s}`;
+  };
+
+  if (showUpiVerification) {
+    const upiId = "7483608721-2@ybl";
+    const upiLink = `upi://pay?pa=${upiId}&pn=Ramya%20C&am=${finalTotal}&cu=INR`;
+    
     return (
-      <div className="pt-24 pb-20 min-h-screen flex items-center justify-center bg-secondary transition-colors duration-300">
-        <div className="bg-primary p-10 rounded-3xl shadow-xl flex flex-col items-center max-w-md text-center">
-          <Smartphone size={48} className="text-purple-600 mb-6 animate-pulse" />
-          <h2 className="text-2xl font-bold mb-2 text-textMain">Redirecting to PhonePe...</h2>
-          <p className="text-textMuted mb-6">Please do not refresh or press back.</p>
-          <div className="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
-             <div className="bg-purple-600 h-full animate-[loading_2s_ease-in-out_infinite] w-1/2 rounded-full"></div>
+      <div className="pt-24 pb-20 min-h-screen flex items-center justify-center bg-gray-50 transition-colors duration-300 p-4">
+        <motion.div 
+          initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }}
+          className="bg-white p-8 rounded-2xl shadow-2xl flex flex-col max-w-lg w-full border border-gray-200"
+        >
+          <div className="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
+            <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+              <Smartphone className="text-purple-600" /> UPI Payment
+            </h2>
+            <div className="text-red-500 font-bold flex items-center gap-1 bg-red-50 px-3 py-1 rounded-full text-sm">
+              <Clock size={16} /> {formatTime(timeLeft)}
+            </div>
           </div>
-        </div>
+          
+          <div className="flex flex-col md:flex-row gap-6 mb-8 items-center md:items-start text-center md:text-left">
+            <div className="p-3 bg-white rounded-xl shadow-sm border border-gray-200 shrink-0">
+               <img 
+                 src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(upiLink)}`} 
+                 alt="PhonePe QR Code" 
+                 className="w-32 h-32"
+               />
+               <p className="text-xs text-center mt-2 text-gray-500 font-medium">Scan to Pay</p>
+            </div>
+            
+            <div className="flex-1 w-full space-y-3">
+               <p className="text-sm text-gray-600 font-medium">Please pay the exact amount below using any UPI App (PhonePe, GPay, Paytm) to complete your order.</p>
+               <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-xs text-gray-500 font-bold uppercase tracking-wider">Amount</span>
+                    <span className="font-bold text-xl text-green-600">₹{finalTotal}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-xs text-gray-500 font-bold uppercase tracking-wider">UPI ID</span>
+                    <span className="font-mono font-bold text-sm text-gray-900">{upiId}</span>
+                  </div>
+               </div>
+               
+               {/* Deeplink for mobile devices */}
+               <a 
+                 href={upiLink}
+                 className="w-full bg-purple-600 text-white font-bold py-3 rounded-lg hover:bg-purple-700 transition-colors shadow-sm flex justify-center items-center gap-2 md:hidden"
+               >
+                 Tap to Pay in App
+               </a>
+            </div>
+          </div>
+          
+          <div className="bg-blue-50 border border-blue-100 p-4 rounded-xl mb-6">
+             <h3 className="text-sm justify-center font-bold text-blue-900 mb-2">Verification details</h3>
+             <form onSubmit={submitUpiPayment} className="space-y-4">
+               <div>
+                 <label className="block text-xs font-bold text-blue-800 mb-1">Enter 12-digit UPI Transaction ID (UTR)</label>
+                 <input 
+                   type="text" 
+                   required
+                   value={utrNumber}
+                   onChange={(e) => setUtrNumber(e.target.value)}
+                   placeholder="e.g. 123456789012"
+                   className="w-full px-4 py-3 border border-blue-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                 />
+               </div>
+               
+               <div>
+                  <label className="block text-xs font-bold text-blue-800 mb-1">Or Upload Payment Screenshot (Optional)</label>
+                  <input type="file" accept="image/*" className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-100 file:text-blue-700 hover:file:bg-blue-200" />
+               </div>
+               
+               <button disabled={isProcessing} className="w-full bg-green-600 text-white font-bold py-3.5 rounded-lg hover:bg-green-700 transition-colors shadow-md disabled:opacity-50 flex justify-center items-center gap-2">
+                  {isProcessing ? <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div> : 'Confirm Payment'}
+               </button>
+             </form>
+          </div>
+          
+          <button onClick={() => setShowUpiVerification(false)} className="w-full text-center text-sm font-bold text-gray-500 hover:text-gray-900">
+             Cancel Payment
+          </button>
+        </motion.div>
       </div>
     );
   }
@@ -316,27 +313,6 @@ const Checkout = () => {
                       </div>
                       <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${paymentMethod === 'upi' ? 'border-primary' : 'border-borderColor'}`}>
                         {paymentMethod === 'upi' && <div className="w-3 h-3 bg-primary rounded-full"></div>}
-                      </div>
-                    </div>
-                  </label>
-
-                  {/* Razorpay Option */}
-                  <label className={`block relative p-4 rounded-xl border-2 cursor-pointer transition-all ${
-                    paymentMethod === 'card' ? 'border-primary bg-primary/5' : 'border-borderColor hover:border-primary/50'
-                  }`}>
-                    <input type="radio" value="card" checked={paymentMethod === 'card'} onChange={() => setPaymentMethod('card')} className="absolute opacity-0" />
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center border border-borderColor shadow-sm font-bold text-blue-600">
-                          ₹
-                        </div>
-                        <div>
-                          <p className="font-bold text-textMain">Razorpay (Cards, NetBanking, Wallets)</p>
-                          <p className="text-sm text-textMuted">Visa, MasterCard, RuPay, etc.</p>
-                        </div>
-                      </div>
-                      <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${paymentMethod === 'card' ? 'border-primary' : 'border-borderColor'}`}>
-                        {paymentMethod === 'card' && <div className="w-3 h-3 bg-primary rounded-full"></div>}
                       </div>
                     </div>
                   </label>

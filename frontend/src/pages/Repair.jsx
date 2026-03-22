@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion';
 import { PenTool, Paintbrush, ShieldCheck, HeartHandshake } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 const Repair = () => {
+  const { isAuthenticated } = useAuth();
   return (
     <div className="pt-32 pb-20 bg-secondary min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -56,9 +58,19 @@ const Repair = () => {
            <div className="flex-1 w-full relative">
              <div className="absolute inset-0 bg-secondary/50 rounded-2xl border-2 border-dashed border-borderColor flex flex-col items-center justify-center p-8 text-center">
                <Paintbrush size={32} className="text-textMuted mb-4 opacity-50"/>
-               <p className="font-bold text-textMain mb-2">Log in to start a repair request</p>
-               <p className="text-sm text-textMuted mb-6">Upload photos of the scuffs or broken parts.</p>
-               <Link to="/login" className="btn-primary py-3 px-6 text-sm">Sign In / Register</Link>
+               {isAuthenticated ? (
+                 <>
+                   <p className="font-bold text-textMain mb-2">Ready to start a repair?</p>
+                   <p className="text-sm text-textMuted mb-6">Head over to your dashboard to submit a request for your toys.</p>
+                   <Link to="/dashboard" className="btn-primary py-3 px-6 text-sm">Go to Dashboard</Link>
+                 </>
+               ) : (
+                 <>
+                   <p className="font-bold text-textMain mb-2">Log in to start a repair request</p>
+                   <p className="text-sm text-textMuted mb-6">Upload photos of the scuffs or broken parts.</p>
+                   <Link to="/login" className="btn-primary py-3 px-6 text-sm">Sign In / Register</Link>
+                 </>
+               )}
              </div>
              {/* Spacer to give the absolute div height */}
              <div className="h-64 sm:h-72 w-full"></div>

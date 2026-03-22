@@ -1,14 +1,17 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Heart, ShoppingCart } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import StarRating from './StarRating';
 import { useAuth } from '../contexts/AuthContext';
+import axiosClient from '../api/axiosClient';
 
 const ToyCard = ({ toy, onAddToCart }) => {
   const imageUrl = toy.images?.[0] || toy.image || `https://picsum.photos/seed/${toy._id || toy.id}/400/300`;
   const toyId = toy._id || toy.id;
   const { user } = useAuth();
+  const [wishlisted, setWishlisted] = useState(false);
 
   return (
     <motion.div
@@ -33,17 +36,22 @@ const ToyCard = ({ toy, onAddToCart }) => {
             onClick={async (e) => {
               e.preventDefault();
               e.stopPropagation();
+              if (!user) {
+                toast.error('Please login to use wishlist');
+                return;
+              }
               try {
                 const res = await axiosClient.post(`/api/wishlist/toggle/${toyId}`);
+                setWishlisted(res.data.isWishlisted);
                 toast.success(res.data.msg);
               } catch (err) {
-                toast.error('Please login to use wishlist');
+                toast.error('Failed to update wishlist');
               }
             }}
             className="absolute top-3 right-3 p-2 bg-white/70 backdrop-blur-sm rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center shadow-sm hover:bg-white"
             title="Add to wishlist"
           >
-            <Heart size={20} className="text-textMuted hover:text-red-500 transition-colors" />
+            <Heart size={20} className={wishlisted ? 'text-red-500 fill-red-500' : 'text-textMuted hover:text-red-500 transition-colors'} />
           </button>
         )}
       </div>

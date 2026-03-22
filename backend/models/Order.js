@@ -33,6 +33,10 @@ const OrderSchema = new mongoose.Schema({
     type: String,
     default: 'Pending'
   },
+  transactionId: {
+    type: String,
+    default: ''
+  },
   status: {
     type: String,
     default: 'pending'
