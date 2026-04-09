@@ -1,6 +1,6 @@
-import React from 'react';
 import { Outlet, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import Logo from '../components/Logo';
 
 const AuthLayout = () => {
   return (
@@ -12,9 +12,7 @@ const AuthLayout = () => {
         <div className="absolute top-1/2 right-0 w-64 h-64 bg-accent/5 rounded-full blur-2xl"></div>
 
         <div className="relative z-10">
-          <Link to="/home" className="text-3xl font-black text-textMain flex items-center gap-2 tracking-tight mb-8">
-            <span className="text-4xl not-italic drop-shadow-md">🪓</span> Lumber Timber
-          </Link>
+          <Logo textSize="text-3xl font-black text-textMain" boxSize="w-10 h-10" iconSize={24} className="mb-8" />
           <h1 className="text-5xl font-black text-textMain leading-tight mb-6">
             Preserving <br/><span className="text-accent text-6xl">Channapatna</span> <br/>Heritage.
           </h1>
@@ -37,9 +35,7 @@ const AuthLayout = () => {
 
       {/* Right Area - Form Outlet */}
       <div className="flex items-center justify-center p-6 sm:p-12 relative z-10">
-        <Link to="/home" className="lg:hidden absolute top-6 left-6 text-2xl font-black text-textMain flex items-center gap-2 tracking-tight">
-          <span className="text-3xl not-italic drop-shadow-md">🪓</span> Lumber Timber
-        </Link>
+        <Logo textSize="text-2xl font-black text-textMain" boxSize="w-9 h-9" iconSize={20} className="lg:hidden absolute top-6 left-6" />
         
         <motion.div 
           className="w-full max-w-md"

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Facebook, Twitter, Instagram, Mail, Phone, MapPin } from 'lucide-react';
+import Logo from './Logo';
 
 const Footer = () => {
   const quickLinks = [
@@ -28,9 +29,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* Brand Info */}
           <div>
-            <h3 className="text-2xl font-bold text-textMain flex items-center gap-2 mb-6">
-              <span className="text-3xl">🪓</span> Lumber Timber
-            </h3>
+            <Logo textSize="text-2xl font-bold text-textMain" boxSize="w-9 h-9" iconSize={22} className="mb-6" />
             <p className="text-textMuted mb-6 leading-relaxed">
               Bringing the magic of eco-friendly Channapatna wooden toys to every home. Safe, sustainable, and handcrafted with love.
             </p>

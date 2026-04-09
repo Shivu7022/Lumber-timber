@@ -157,6 +157,31 @@ const OverviewTab = ({ orders = [], repairs = [], subscriptions = [], user, load
   const adoptedCount = subscriptions.length;
   const creditBalance = user?.creditBalance ?? 0;
 
+  // Generate real-time activities from orders, repairs and subscriptions
+  const recentActivities = [
+    ...orders.map(o => ({
+      action: `Ordered ${o.toys?.[0]?.toy?.name || 'Wooden Toy'} ${o.toys?.length > 1 ? `+${o.toys.length - 1} more` : ''}`,
+      date: new Date(o.date || o.createdAt).toLocaleDateString(),
+      status: o.status || 'Pending',
+      rawDate: new Date(o.date || o.createdAt)
+    })),
+    ...repairs.map(r => ({
+      action: r.requestType === 'return' ? `Adoption requested for ${r.toy?.name || 'Toy'}` : `Repair requested for ${r.toy?.name || 'Toy'}`,
+      date: new Date(r.dateRequested || r.createdAt).toLocaleDateString(),
+      status: r.status === 'completed' ? 'Delivered' : (r.status === 'in-progress' ? 'In Progress' : 'Pending'),
+      rawDate: new Date(r.dateRequested || r.createdAt)
+    })),
+    ...subscriptions.map(s => ({
+      action: `Started ${s.plan || 'Standard'} Subscription`,
+      date: new Date(s.createdAt || s.date).toLocaleDateString(),
+      status: 'Active',
+      rawDate: new Date(s.createdAt || s.date)
+    }))
+  ]
+  .filter(a => !isNaN(a.rawDate.getTime()))
+  .sort((a, b) => b.rawDate - a.rawDate)
+  .slice(0, 5);
+
   return (
     <div className="space-y-6">
       {loading && (
@@ -188,25 +213,27 @@ const OverviewTab = ({ orders = [], repairs = [], subscriptions = [], user, load
       <div className="card">
         <h2 className="text-2xl font-bold text-textMain mb-6">Recent Activity</h2>
         <div className="space-y-4">
-          {[
-            { action: 'Ordered Wooden Train Set', date: '2024-03-15', status: 'Delivered' },
-            { action: 'Adopted Animal Figurines', date: '2024-03-10', status: 'Active' },
-            { action: 'Repair requested for Puzzle Game', date: '2024-03-08', status: 'In Progress' }
-          ].map((activity, index) => (
-            <div key={index} className="flex items-center justify-between py-3 border-b border-white/20 last:border-b-0">
-              <div>
-                <p className="font-semibold">{activity.action}</p>
-                <p className="text-sm text-textMuted">{activity.date}</p>
-              </div>
-              <span className={`px-3 py-1 rounded-full text-sm ${
-                activity.status === 'Delivered' ? 'bg-green-100 text-green-800' :
-                activity.status === 'Active' ? 'bg-blue-100 text-blue-800' :
-                'bg-yellow-100 text-yellow-800'
-              }`}>
-                {activity.status}
-              </span>
+          {recentActivities.length === 0 ? (
+            <div className="text-textMuted text-center py-6 border-2 border-dashed border-borderColor rounded-xl font-medium">
+              No recent activity found.
             </div>
-          ))}
+          ) : (
+            recentActivities.map((activity, index) => (
+              <div key={index} className="flex items-center justify-between py-3 border-b border-white/10 last:border-b-0">
+                <div>
+                  <p className="font-semibold text-textMain">{activity.action}</p>
+                  <p className="text-sm text-textMuted">{activity.date}</p>
+                </div>
+                <span className={`px-3 py-1 rounded-full text-xs font-bold ${
+                  activity.status === 'Delivered' || activity.status === 'Completed' ? 'bg-green-100 text-green-800' :
+                  activity.status === 'Active' ? 'bg-blue-100 text-blue-800' :
+                  'bg-yellow-100 text-yellow-800'
+                }`}>
+                  {activity.status}
+                </span>
+              </div>
+            ))
+          )}
         </div>
       </div>
     </div>

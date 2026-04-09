@@ -35,16 +35,25 @@ const seedToys = async () => {
 // Seed default coupons
 const seedCoupons = async () => {
   try {
-    const count = await Coupon.countDocuments();
-    if (count === 0) {
-      const sampleCoupons = [
-        { code: 'ECO10', discountPercentage: 10, isActive: true },
-        { code: 'WELCOME20', discountPercentage: 20, isActive: true },
-        { code: 'EXPIRED50', discountPercentage: 50, isActive: false }
-      ];
-      await Coupon.insertMany(sampleCoupons);
-      console.log('Seeded sample coupons into MongoDB');
+    const defaultCoupons = [
+      { code: 'ECO10', discountPercentage: 10, isActive: true },
+      { code: 'WELCOME20', discountPercentage: 20, isActive: true },
+      { code: 'EXPIRED50', discountPercentage: 50, isActive: false },
+      { code: 'LUMBER5', discountPercentage: 5, isActive: true },
+      { code: 'LUMBER10', discountPercentage: 10, isActive: true },
+      { code: 'FREEBIE', discountPercentage: 100, isActive: true },
+      { code: 'FREESHIP', discountPercentage: 15, isActive: true }, // Representing shipping as ~15% off
+      { code: 'POINTS500', discountPercentage: 5, isActive: true }
+    ];
+
+    for (const coupon of defaultCoupons) {
+      await Coupon.findOneAndUpdate(
+        { code: coupon.code },
+        { $set: coupon },
+        { upsert: true, new: true }
+      );
     }
+    console.log('Seeded/Updated all required coupons into MongoDB');
   } catch (err) {
      console.error('Error seeding coupons', err);
   }

@@ -5,6 +5,7 @@ import { Mail, Lock, Eye, EyeOff, AlertCircle, RefreshCw, ShieldCheck, TreePine,
 import { toast } from 'react-hot-toast';
 import { useAuth } from '../contexts/AuthContext';
 import axiosClient from '../api/axiosClient';
+import Logo from '../components/Logo';
 
 const Login = () => {
   const [portal, setPortal] = useState('user'); // 'user' or 'admin' 
@@ -164,12 +165,7 @@ const Login = () => {
       
       {/* Header inside the page background */}
       <div className="absolute top-0 left-0 w-full p-6 flex justify-between items-center z-10">
-        <Link to="/home" className="flex items-center gap-2 text-textMain font-black tracking-widest uppercase">
-          <div className="w-8 h-8 bg-accent text-white rounded-lg flex items-center justify-center shadow-md">
-            <TreePine size={18} />
-          </div>
-          Lumber & Timber
-        </Link>
+        <Logo textSize="text-textMain font-black tracking-widest uppercase" boxSize="w-8 h-8" iconSize={18} />
         <Link to="/home" className="flex items-center gap-2 text-sm font-bold text-textMuted hover:text-accent transition-colors">
           <ArrowLeft size={16} /> Back to Home
         </Link>

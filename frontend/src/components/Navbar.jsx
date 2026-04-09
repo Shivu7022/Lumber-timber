@@ -6,6 +6,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useCart } from '../contexts/CartContext';
 import axiosClient from '../api/axiosClient';
 import { useTheme } from '../contexts/ThemeContext';
+import Logo from './Logo';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -78,6 +79,10 @@ const Navbar = () => {
         setUnreadCount(prev => Math.max(0, prev - 1));
       } catch (_) {}
     }
+    if (notif.link) {
+      navigate(notif.link);
+      setIsNotifOpen(false);
+    }
   };
 
   const categories = ['Baby Toys', 'Educational Toys', 'Decorative Toys', 'Puzzle Toys'];
@@ -104,10 +109,8 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link to="/home" className="text-2xl font-black text-textMain flex items-center gap-2 tracking-tight">
-            <span className="text-3xl not-italic drop-shadow-md">🪓</span> 
-            <span className="hidden sm:inline">Lumber Timber</span>
-          </Link>
+          <Logo textSize="text-2xl font-black text-textMain" boxSize="w-9 h-9" iconSize={22} className="hidden sm:flex" />
+          <Logo showText={false} boxSize="w-9 h-9" iconSize={22} className="sm:hidden" />
 
           {/* Desktop Search Bar */}
           <form onSubmit={handleSearch} className="hidden md:flex flex-1 max-w-2xl mx-8 relative shadow-sm">
@@ -194,6 +197,22 @@ const Navbar = () => {
             </div>
           )}
 
+          {/* Cart Icon */}
+          {(!user || user.role !== 'admin') && (
+            <Link
+              to="/cart"
+              className="relative text-textMain hover:text-accent p-2 rounded-lg hover:bg-secondary transition-colors"
+              title="Cart"
+            >
+              <ShoppingCart size={24} />
+              {cartItems.length > 0 && (
+                <span className="absolute -top-1 -right-1 bg-accent text-white text-[10px] font-black rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-1">
+                  {cartItems.length}
+                </span>
+              )}
+            </Link>
+          )}
+
           {/* Universal Hamburger Menu Button */}
           <div className="flex items-center gap-4 ml-auto">
             <button
@@ -270,7 +289,9 @@ const Navbar = () => {
 
               {/* Primary Links */}
               <div className="flex flex-col space-y-4">
-                <Link to="/home" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-bold text-textMain hover:text-accent flex items-center gap-3"><span className="text-2xl">🪓</span> Home</Link>
+                <Link to="/home" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-bold text-textMain hover:text-accent flex items-center gap-3">
+                  <Logo showText={false} boxSize="w-8 h-8" iconSize={18} to="#" /> Home
+                </Link>
                 <Link to="/products" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-bold text-textMain hover:text-accent flex items-center gap-3"><span className="text-2xl">🌍</span> Explore Toys</Link>
                 {user && <Link to="/dashboard" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-bold text-textMain hover:text-accent flex items-center gap-3"><span className="text-2xl">📊</span> Dashboard</Link>}
               </div>

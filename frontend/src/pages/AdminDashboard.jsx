@@ -12,19 +12,22 @@ const AdminDashboard = () => {
   const [toys, setToys] = useState([]);
   const [orders, setOrders] = useState([]);
   const [repairs, setRepairs] = useState([]);
+  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const fetchAdminData = async () => {
     setLoading(true);
     try {
-      const [toysRes, ordersRes, repairsRes] = await Promise.all([
+      const [toysRes, ordersRes, repairsRes, usersRes] = await Promise.all([
         axiosClient.get('/api/toys'),
         axiosClient.get('/api/orders/all'),
-        axiosClient.get('/api/repairs/all').catch(() => ({ data: [] }))
+        axiosClient.get('/api/repairs/all').catch(() => ({ data: [] })),
+        axiosClient.get('/api/users/all').catch(() => ({ data: [] }))
       ]);
       setToys(toysRes.data.toys || toysRes.data || []);
       setOrders(ordersRes.data);
       setRepairs(repairsRes.data);
+      setUsers(usersRes.data);
     } catch (err) {
       console.error('Failed to fetch admin data', err);
       if (err.response?.status === 403) {
@@ -117,7 +120,7 @@ const AdminDashboard = () => {
                   {activeTab === 'toys' && <ManageToysTab toys={toys} onRefresh={fetchAdminData} />}
                   {activeTab === 'orders' && <OrdersTab orders={orders} onRefresh={fetchAdminData} />}
                   {activeTab === 'returns' && <ReturnsTab repairs={repairs} onRefresh={fetchAdminData} />}
-                  {activeTab === 'users' && <div className="card text-center py-20 text-textMuted font-bold bg-primary">User Management Coming Soon...</div>}
+                  {activeTab === 'users' && <UsersTab users={users} />}
                   {activeTab === 'support' && <SupportTab />}
                 </>
               )}
@@ -141,7 +144,7 @@ function OverviewTab({ toys, orders, repairs }) {
       <div className="grid sm:grid-cols-3 gap-6">
         <div className="card bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-100 p-6 rounded-2xl">
           <h3 className="text-blue-800 font-bold mb-2">Total Income</h3>
-          <p className="text-4xl font-black text-blue-900">₹{orders.reduce((acc, curr) => acc + (curr.totalAmount || 0), 0)}</p>
+          <p className="text-4xl font-black text-blue-900">₹{orders.reduce((acc, curr) => acc + (curr.totalAmount || 0), 0).toFixed(2)}</p>
         </div>
         <div className="card bg-gradient-to-br from-green-50 to-emerald-50 border-green-100 p-6 rounded-2xl">
           <h3 className="text-green-800 font-bold mb-2">Total Orders</h3>
@@ -175,6 +178,7 @@ function OverviewTab({ toys, orders, repairs }) {
 
 function ManageToysTab({ toys, onRefresh }) {
   const [showAddForm, setShowAddForm] = useState(false);
+  const [editingId, setEditingId] = useState(null);
   const [expandedId, setExpandedId] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
@@ -189,6 +193,35 @@ function ManageToysTab({ toys, onRefresh }) {
     artisanLocation: '',
     artisanStory: ''
   });
+
+  const handleEdit = (toy) => {
+    setEditingId(toy._id);
+    setFormData({
+      name: toy.name || '',
+      description: toy.description || '',
+      price: toy.price || '',
+      images: toy.images?.[0] || '',
+      category: toy.category || 'Educational',
+      ageGroup: toy.ageGroup || '1-3 years',
+      uniqueId: toy.uniqueId || '',
+      artisanName: toy.artisan?.name || '',
+      artisanLocation: toy.artisan?.location || '',
+      artisanStory: toy.artisan?.story || ''
+    });
+    setShowAddForm(true);
+    // Scroll to top of form
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleCancel = () => {
+    setShowAddForm(false);
+    setEditingId(null);
+    setFormData({
+      name: '', description: '', price: '', images: '',
+      category: 'Educational', ageGroup: '1-3 years', uniqueId: '',
+      artisanName: '', artisanLocation: '', artisanStory: ''
+    });
+  };
 
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this toy?")) {
@@ -206,7 +239,7 @@ function ManageToysTab({ toys, onRefresh }) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleAddToy = async (e) => {
+  const handleSaveToy = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     
@@ -223,18 +256,18 @@ function ManageToysTab({ toys, onRefresh }) {
     };
 
     try {
-      await axiosClient.post('/api/toys', payload);
-      toast.success("New toy successfully added!");
-      setShowAddForm(false);
-      setFormData({
-        name: '', description: '', price: '', images: '',
-        category: 'Educational', ageGroup: '1-3 years', uniqueId: '',
-        artisanName: '', artisanLocation: '', artisanStory: ''
-      });
+      if (editingId) {
+        await axiosClient.put(`/api/toys/${editingId}`, payload);
+        toast.success("Toy successfully updated!");
+      } else {
+        await axiosClient.post('/api/toys', payload);
+        toast.success("New toy successfully added!");
+      }
+      handleCancel();
       onRefresh();
     } catch (err) {
       console.error(err);
-      toast.error(err.response?.data?.msg || "Failed to add toy");
+      toast.error(err.response?.data?.msg || "Failed to save toy");
     } finally {
       setIsSubmitting(false);
     }
@@ -245,18 +278,18 @@ function ManageToysTab({ toys, onRefresh }) {
       <div className="p-6 border-b border-borderColor flex justify-between items-center bg-secondary transition-colors duration-300">
         <h2 className="text-xl font-bold text-textMain">Inventory Management</h2>
         <button 
-          onClick={() => setShowAddForm(!showAddForm)}
+          onClick={() => editingId ? handleCancel() : setShowAddForm(!showAddForm)}
           className="bg-primary text-white px-4 py-2 rounded-lg font-bold flex items-center gap-2 hover:bg-primary/90"
         >
-          {showAddForm ? <RotateCcw size={18} /> : <Plus size={18} />} 
-          {showAddForm ? "Cancel" : "Add New Toy"}
+          {(showAddForm || editingId) ? <RotateCcw size={18} /> : <Plus size={18} />} 
+          {(showAddForm || editingId) ? "Cancel" : "Add New Toy"}
         </button>
       </div>
 
       {showAddForm && (
         <div className="p-6 border-b border-borderColor bg-secondary transition-all">
-          <form onSubmit={handleAddToy} className="space-y-4 max-w-2xl">
-            <h3 className="font-bold text-lg text-textMain">Add New Toy</h3>
+          <form onSubmit={handleSaveToy} className="space-y-4 max-w-2xl">
+            <h3 className="font-bold text-lg text-textMain">{editingId ? `Edit Toy: ${formData.name}` : 'Add New Toy'}</h3>
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-bold text-textMuted mb-1">Toy Name *</label>
@@ -314,7 +347,7 @@ function ManageToysTab({ toys, onRefresh }) {
             </div>
             <div className="flex justify-end pt-2">
               <button disabled={isSubmitting} type="submit" className="bg-accent text-white px-6 py-2 rounded-lg font-bold hover:bg-accent/90 disabled:opacity-50">
-                {isSubmitting ? 'Saving...' : 'Save Toy'}
+                {isSubmitting ? 'Saving...' : editingId ? 'Update Toy' : 'Save Toy'}
               </button>
             </div>
           </form>
@@ -351,7 +384,7 @@ function ManageToysTab({ toys, onRefresh }) {
                   <td className="px-6 py-4 text-sm text-textMuted">{toy.ageGroup}</td>
                   <td className="px-6 py-4">
                      <div className="flex justify-end gap-2">
-                       <button className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg"><Edit size={16}/></button>
+                       <button onClick={() => handleEdit(toy)} className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg"><Edit size={16}/></button>
                        <button onClick={() => handleDelete(toy._id)} className="p-2 text-red-600 hover:bg-red-50 rounded-lg"><Trash2 size={16}/></button>
                      </div>
                   </td>
@@ -545,6 +578,62 @@ function ReturnsTab({ repairs, onRefresh }) {
             ))}
             {repairs.length === 0 && (
               <tr><td colSpan="6" className="text-center py-10 font-bold text-textMuted">No active requests currently</td></tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+function UsersTab({ users }) {
+  return (
+    <div className="bg-primary rounded-3xl shadow-sm border border-borderColor overflow-hidden">
+      <div className="p-6 border-b border-borderColor bg-secondary transition-colors duration-300">
+        <h2 className="text-xl font-bold text-textMain">User Management</h2>
+      </div>
+
+      <div className="overflow-x-auto">
+        <table className="w-full text-left text-sm text-textMuted">
+          <thead className="bg-secondary text-textMain font-bold border-b border-borderColor">
+            <tr>
+              <th className="px-6 py-4">User</th>
+              <th className="px-6 py-4">Contact</th>
+              <th className="px-6 py-4">Role</th>
+              <th className="px-6 py-4">Credits</th>
+              <th className="px-6 py-4">Joined</th>
+            </tr>
+          </thead>
+          <tbody>
+            {(users || []).map((user) => (
+              <tr key={user._id} className="border-b border-borderColor hover:bg-secondary transition-colors duration-300">
+                <td className="px-6 py-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center text-accent font-bold">
+                      {user.name?.[0]?.toUpperCase() || 'U'}
+                    </div>
+                    <div className="font-bold text-textMain">{user.name}</div>
+                  </div>
+                </td>
+                <td className="px-6 py-4">
+                  <div className="text-xs">{user.email}</div>
+                  <div className="text-[10px] text-textMuted">{user.phone || 'No phone'}</div>
+                </td>
+                <td className="px-6 py-4">
+                  <span className={`px-2 py-1 rounded text-[10px] font-bold uppercase ${
+                    user.role === 'admin' ? 'bg-purple-100 text-purple-800' : 'bg-gray-100 text-gray-800'
+                  }`}>
+                    {user.role}
+                  </span>
+                </td>
+                <td className="px-6 py-4 font-bold text-textMain">₹{user.creditBalance || 0}</td>
+                <td className="px-6 py-4 text-xs">
+                  {new Date(user.date || user.createdAt).toLocaleDateString()}
+                </td>
+              </tr>
+            ))}
+            {(!users || users.length === 0) && (
+              <tr><td colSpan="5" className="text-center py-10 font-bold text-textMuted">No users found</td></tr>
             )}
           </tbody>
         </table>

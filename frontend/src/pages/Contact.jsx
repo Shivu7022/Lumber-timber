@@ -2,18 +2,56 @@ import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import { useState } from 'react';
+import { useAuth } from '../contexts/AuthContext';
+import axiosClient from '../api/axiosClient';
 
 const Contact = () => {
+  const { user, isAuthenticated } = useAuth();
   const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    subject: 'General Inquiry',
+    message: ''
+  });
 
-  const handleSubmit = (e) => {
+  const handleInputChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    if (!isAuthenticated) {
+      toast.error("Please login to send a support message.");
+      return;
+    }
+
     setLoading(true);
-    setTimeout(() => {
+    try {
+      const formattedMessage = `[${formData.subject}] from ${formData.firstName} ${formData.lastName} (${formData.email}): ${formData.message}`;
+      
+      await axiosClient.post('/api/support/send', {
+        userId: user._id,
+        message: formattedMessage,
+        sender: 'user'
+      });
+
+      toast.success("Message sent! Our support team will respond in the chat soon.");
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        subject: 'General Inquiry',
+        message: ''
+      });
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to send message. Please try the floating chat icon.");
+    } finally {
       setLoading(false);
-      toast.success("Message sent! We'll get back to you soon.");
-      e.target.reset();
-    }, 1500);
+    }
   };
 
   return (
@@ -90,22 +128,22 @@ const Contact = () => {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-bold text-textMuted mb-2">First Name</label>
-                  <input required type="text" className="w-full px-4 py-3 rounded-xl bg-secondary border border-borderColor focus:outline-none focus:ring-2 focus:ring-accent/50 text-textMain font-medium" placeholder="John" />
+                  <input required name="firstName" value={formData.firstName} onChange={handleInputChange} type="text" className="w-full px-4 py-3 rounded-xl bg-secondary border border-borderColor focus:outline-none focus:ring-2 focus:ring-accent/50 text-textMain font-medium" placeholder="John" />
                 </div>
                 <div>
                   <label className="block text-sm font-bold text-textMuted mb-2">Last Name</label>
-                  <input required type="text" className="w-full px-4 py-3 rounded-xl bg-secondary border border-borderColor focus:outline-none focus:ring-2 focus:ring-accent/50 text-textMain font-medium" placeholder="Doe" />
+                  <input required name="lastName" value={formData.lastName} onChange={handleInputChange} type="text" className="w-full px-4 py-3 rounded-xl bg-secondary border border-borderColor focus:outline-none focus:ring-2 focus:ring-accent/50 text-textMain font-medium" placeholder="Doe" />
                 </div>
               </div>
 
               <div>
                 <label className="block text-sm font-bold text-textMuted mb-2">Email Address</label>
-                <input required type="email" className="w-full px-4 py-3 rounded-xl bg-secondary border border-borderColor focus:outline-none focus:ring-2 focus:ring-accent/50 text-textMain font-medium" placeholder="john@example.com" />
+                <input required name="email" value={formData.email} onChange={handleInputChange} type="email" className="w-full px-4 py-3 rounded-xl bg-secondary border border-borderColor focus:outline-none focus:ring-2 focus:ring-accent/50 text-textMain font-medium" placeholder="john@example.com" />
               </div>
 
               <div>
                 <label className="block text-sm font-bold text-textMuted mb-2">Subject</label>
-                <select className="w-full px-4 py-3 rounded-xl bg-secondary border border-borderColor focus:outline-none focus:ring-2 focus:ring-accent/50 text-textMain font-medium">
+                <select name="subject" value={formData.subject} onChange={handleInputChange} className="w-full px-4 py-3 rounded-xl bg-secondary border border-borderColor focus:outline-none focus:ring-2 focus:ring-accent/50 text-textMain font-medium">
                   <option>General Inquiry</option>
                   <option>Order Status</option>
                   <option>Custom Toy Request</option>
@@ -115,7 +153,7 @@ const Contact = () => {
 
               <div>
                 <label className="block text-sm font-bold text-textMuted mb-2">Your Message</label>
-                <textarea required rows="5" className="w-full px-4 py-3 rounded-xl bg-secondary border border-borderColor focus:outline-none focus:ring-2 focus:ring-accent/50 text-textMain font-medium resize-none" placeholder="How can we help you?"></textarea>
+                <textarea required name="message" value={formData.message} onChange={handleInputChange} rows="5" className="w-full px-4 py-3 rounded-xl bg-secondary border border-borderColor focus:outline-none focus:ring-2 focus:ring-accent/50 text-textMain font-medium resize-none" placeholder="How can we help you?"></textarea>
               </div>
 
               <button disabled={loading} type="submit" className="w-full btn-primary py-4 flex items-center justify-center gap-2">

@@ -89,6 +89,19 @@ router.post('/', auth, async (req, res) => {
   const { toys, totalAmount, paymentMethod, transactionId } = req.body;
 
   try {
+    // If UPI, validate transactionId
+    if (paymentMethod === 'UPI') {
+      if (!transactionId || !/^\d{12}$/.test(transactionId)) {
+        return res.status(400).json({ msg: 'Please provide a valid 12-digit numeric UPI Transaction ID (UTR).' });
+      }
+      
+      // Check for duplicate transaction ID
+      const existingOrder = await Order.findOne({ transactionId });
+      if (existingOrder) {
+        return res.status(400).json({ msg: 'This Transaction ID has already been used for another order.' });
+      }
+    }
+
     const order = new Order({
       user: req.user.id,
       toys,
@@ -122,6 +135,19 @@ router.post('/create', auth, async (req, res) => {
   const { toys, totalAmount, paymentMethod, orderType, transactionId } = req.body;
 
   try {
+    // If UPI, validate transactionId
+    if (paymentMethod === 'UPI') {
+      if (!transactionId || !/^\d{12}$/.test(transactionId)) {
+        return res.status(400).json({ msg: 'Please provide a valid 12-digit numeric UPI Transaction ID (UTR).' });
+      }
+      
+      // Check for duplicate transaction ID
+      const existingOrder = await Order.findOne({ transactionId });
+      if (existingOrder) {
+        return res.status(400).json({ msg: 'This Transaction ID has already been used for another order.' });
+      }
+    }
+
     const order = new Order({
       user: req.user.id,
       toys,

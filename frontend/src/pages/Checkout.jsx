@@ -9,7 +9,7 @@ import { toast } from 'react-hot-toast';
 
 const Checkout = () => {
   const navigate = useNavigate();
-  const { cartItems, total, clearCart } = useCart();
+  const { cartItems, subtotal, shipping, total, clearCart } = useCart();
   const { user } = useAuth();
   const [deliveryAddress, setDeliveryAddress] = useState(user?.address || '');
   const [paymentMethod, setPaymentMethod] = useState('upi');
@@ -58,8 +58,8 @@ const Checkout = () => {
 
   const submitUpiPayment = async (e) => {
     e.preventDefault();
-    if (!utrNumber || utrNumber.length < 6) {
-      toast.error("Please enter a valid 12-digit UPI Transaction ID");
+    if (!utrNumber || !/^\d{12}$/.test(utrNumber)) {
+      toast.error("Please enter a valid 12-digit UPI Transaction ID (numeric only)");
       return;
     }
 
@@ -79,7 +79,7 @@ const Checkout = () => {
       clearCart();
     } catch (err) {
       console.error(err);
-      toast.error('Payment verification failed.');
+      toast.error(err.response?.data?.msg || 'Payment verification failed.');
       setIsProcessing(false);
     }
   };
@@ -182,14 +182,21 @@ const Checkout = () => {
              <form onSubmit={submitUpiPayment} className="space-y-4">
                <div>
                  <label className="block text-xs font-bold text-blue-800 mb-1">Enter 12-digit UPI Transaction ID (UTR)</label>
-                 <input 
-                   type="text" 
-                   required
-                   value={utrNumber}
-                   onChange={(e) => setUtrNumber(e.target.value)}
-                   placeholder="e.g. 123456789012"
-                   className="w-full px-4 py-3 border border-blue-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                 />
+                  <input 
+                    type="text" 
+                    required
+                    maxLength={12}
+                    value={utrNumber}
+                    onChange={(e) => setUtrNumber(e.target.value.replace(/\D/g, ''))}
+                    placeholder="e.g. 102938475612"
+                    className="w-full px-4 py-3 border border-blue-200 rounded-lg bg-secondary text-textMain focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono tracking-widest text-center text-lg"
+                  />
+                  <div className="flex justify-between mt-1 px-1">
+                    <span className="text-[10px] text-blue-600 font-bold uppercase tracking-tight">Required: 12 numeric digits</span>
+                    <span className={`text-[10px] font-black ${utrNumber.length === 12 ? 'text-green-600' : 'text-blue-400'}`}>
+                      {utrNumber.length}/12
+                    </span>
+                  </div>
                </div>
                
                <div>
@@ -297,11 +304,14 @@ const Checkout = () => {
                 
                 <div className="space-y-4 mb-8">
                   {/* UPI Option */}
-                  <label className={`block relative p-4 rounded-xl border-2 cursor-pointer transition-all ${
-                    paymentMethod === 'upi' ? 'border-primary bg-primary/5' : 'border-borderColor hover:border-primary/50'
-                  }`}>
-                    <input type="radio" value="upi" checked={paymentMethod === 'upi'} onChange={() => setPaymentMethod('upi')} className="absolute opacity-0" />
-                    <div className="flex items-center justify-between">
+                  <label 
+                    onClick={() => setPaymentMethod('upi')}
+                    className={`block relative p-4 rounded-xl border-2 cursor-pointer transition-all ${
+                      paymentMethod === 'upi' ? 'border-primary bg-primary/5' : 'border-borderColor hover:border-primary/50'
+                    }`}
+                  >
+                    <input type="radio" name="paymentOption" value="upi" checked={paymentMethod === 'upi'} readOnly className="absolute opacity-0" />
+                    <div className="flex items-center justify-between pointer-events-none">
                       <div className="flex items-center gap-4">
                         <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center border border-borderColor shadow-sm">
                           <Smartphone className="text-purple-600" size={24} />
@@ -318,11 +328,14 @@ const Checkout = () => {
                   </label>
 
                   {/* COD Option */}
-                  <label className={`block relative p-4 rounded-xl border-2 cursor-pointer transition-all ${
-                    paymentMethod === 'cod' ? 'border-primary bg-primary/5' : 'border-borderColor hover:border-primary/50'
-                  }`}>
-                    <input type="radio" value="cod" checked={paymentMethod === 'cod'} onChange={() => setPaymentMethod('cod')} className="absolute opacity-0" />
-                    <div className="flex items-center justify-between">
+                  <label 
+                    onClick={() => setPaymentMethod('cod')}
+                    className={`block relative p-4 rounded-xl border-2 cursor-pointer transition-all ${
+                      paymentMethod === 'cod' ? 'border-primary bg-primary/5' : 'border-borderColor hover:border-primary/50'
+                    }`}
+                  >
+                    <input type="radio" name="paymentOption" value="cod" checked={paymentMethod === 'cod'} readOnly className="absolute opacity-0" />
+                    <div className="flex items-center justify-between pointer-events-none">
                       <div className="flex items-center gap-4">
                         <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center border border-borderColor shadow-sm text-green-700">
                           <Truck size={24} />
@@ -376,16 +389,16 @@ const Checkout = () => {
             </div>
 
             <div className="mb-6 pb-6 border-b border-borderColor">
-               <div className="flex gap-2">
-                 <input 
-                   type="text" 
-                   placeholder="Coupon Code (e.g. ECO10)" 
-                   value={couponCode}
-                   onChange={(e) => setCouponCode(e.target.value)}
-                   className="flex-1 px-4 py-2 rounded-lg border border-borderColor focus:ring-2 focus:ring-primary focus:outline-none uppercase"
-                 />
-                 <button type="button" onClick={applyCoupon} className="bg-neutral-800 text-white px-4 py-2 rounded-lg font-bold hover:bg-neutral-900">Apply</button>
-               </div>
+                <div className="flex gap-2">
+                  <input 
+                    type="text" 
+                    placeholder="Coupon Code (e.g. ECO10)" 
+                    value={couponCode}
+                    onChange={(e) => setCouponCode(e.target.value)}
+                    className="flex-1 px-4 py-2 rounded-lg border border-borderColor bg-secondary text-textMain focus:ring-2 focus:ring-primary focus:outline-none uppercase"
+                  />
+                  <button type="button" onClick={applyCoupon} className="bg-[var(--accent)] text-white px-4 py-2 rounded-lg font-bold hover:opacity-90 transition-opacity">Apply</button>
+                </div>
                {couponMessage.text && (
                  <p className={`text-sm mt-2 font-medium ${couponMessage.type === 'error' ? 'text-red-600' : 'text-green-600'}`}>
                    {couponMessage.text}
@@ -396,17 +409,17 @@ const Checkout = () => {
             <div className="space-y-3 font-medium text-textMain">
                <div className="flex justify-between">
                  <span>Subtotal</span>
-                 <span>₹{total}</span>
+                 <span>₹{subtotal}</span>
                </div>
                {discountPercentage > 0 && (
                  <div className="flex justify-between text-green-600">
                    <span>Discount ({discountPercentage}%)</span>
-                   <span>-₹{(total * discountPercentage) / 100}</span>
+                   <span>-₹{(subtotal * discountPercentage) / 100}</span>
                  </div>
                )}
                <div className="flex justify-between">
                  <span>Shipping</span>
-                 <span className="text-green-600">Free</span>
+                 <span className={shipping === 0 ? 'text-green-600' : ''}>{shipping === 0 ? 'Free' : `₹${shipping}`}</span>
                </div>
                <div className="flex justify-between text-2xl font-black text-textMain pt-4 border-t border-borderColor mt-4">
                  <span>Total Pay</span>

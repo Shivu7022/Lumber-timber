@@ -3,6 +3,7 @@ const router = express.Router();
 const auth = require('../middleware/auth');
 const ChatMessage = require('../models/ChatMessage');
 const User = require('../models/User');
+const Notification = require('../models/Notification');
 
 // @route   POST api/support/send
 // @desc    Send a message (user or admin)
@@ -27,6 +28,23 @@ router.post('/send', auth, async (req, res) => {
     });
 
     const savedMessage = await newMessage.save();
+
+    // If admin is sending the message, notify the user
+    if (sender === 'admin') {
+      try {
+        const notification = new Notification({
+          user: userId,
+          title: 'New Support Message',
+          message: message.length > 50 ? message.substring(0, 50) + '...' : message,
+          type: 'general',
+          link: '/home?chat=open'
+        });
+        await notification.save();
+      } catch (notiErr) {
+        console.error("Failed to create support notification", notiErr);
+      }
+    }
+
     res.json(savedMessage);
   } catch (err) {
     console.error(err.message);

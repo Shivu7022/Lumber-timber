@@ -37,27 +37,40 @@ const ChatBot = () => {
       const fetchMessages = async () => {
         try {
           const res = await axiosClient.get(`/api/support/messages/${user._id}`);
-          // Transform backend messages to local format
           const formatted = res.data.map(m => ({
             sender: m.sender,
             text: m.message
           }));
           
-          // Initial message + backend messages
-          setMessages([
-            { sender: 'bot', text: 'Connected to a human support agent. How can we help you? 🎧' },
-            ...formatted
-          ]);
+          if (formatted.length > 0) {
+             setMessages(formatted);
+          } else {
+             setMessages([{ sender: 'admin', text: 'Connected to a human support agent. How can we help you? 🎧' }]);
+          }
         } catch (err) {
           console.error("Failed to fetch support messages", err);
         }
       };
       
       fetchMessages();
-      interval = setInterval(fetchMessages, 4000);
+      interval = setInterval(fetchMessages, 3000);
     }
     return () => clearInterval(interval);
   }, [isOpen, isHumanMode, isAuthenticated, user]);
+
+  // Handle URL parameters for opening the chat
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('chat') === 'open') {
+      setIsOpen(true);
+      if (isAuthenticated) {
+        setIsHumanMode(true);
+      }
+      // Remove the query param from the URL without reloading
+      const newUrl = window.location.pathname + window.location.hash;
+      window.history.replaceState({}, '', newUrl);
+    }
+  }, [isAuthenticated]);
 
   const handleSend = async (text) => {
     if (!text.trim()) return;
@@ -67,15 +80,20 @@ const ChatBot = () => {
         setMessages(prev => [...prev, { sender: 'user', text }, { sender: 'bot', text: 'Please login to speak with a human agent.' }]);
         return;
       }
+      
+      // Add locally for instant feedback
+      setMessages(prev => [...prev, { sender: 'user', text }]);
+      setInput('');
+
       try {
         await axiosClient.post('/api/support/send', {
           userId: user._id,
           message: text,
           sender: 'user'
         });
-        setInput('');
       } catch (err) {
-        console.error(err);
+        console.error(notiErr);
+        toast.error("Failed to send message");
       }
       return;
     }
